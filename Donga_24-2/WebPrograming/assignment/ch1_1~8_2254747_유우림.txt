@@ -1,0 +1,70 @@
+1.
+최신 html5버전이라는 의미
+
+2.
+짝지
+: <head>, <body>, <title>, <html>, <form>, <style>, <p>, <a>
+
+솔로
+: <br>, <hr>, <meta->, <input>, <link>
+
+3.
+<!--  -->
+
+4.
+<a href="new.css">이동</a>
+
+5.
+submit
+: form안의 데이터를 method방법에 따라 주소로 전송
+
+reset
+: form안의 데이터 초기화
+
+6.
+(1)
+<body style="background-color:lime">
+
+(2)
+style>
+	a { background-color:lime; }
+</style>
+
+(3)
+<link rel="sytlesheet" href="1.css">
+
+7.
+<!doctypehtml>
+<html>
+	<head> 
+		<metacharset="UTF-8">
+        <title>확인문제 7번</title>
+	</head>
+	<body>
+		<form>
+            성별 :  <input type="radio" name="gender" value="man">맨
+                    <input type="radio" name="gender" value="woman">워먼 <br>
+            식성 :  <input type="radio" name="food1" value="meat">고기 only
+                    <input type="radio" name="food1" value="ya">채소 only
+                    <input type="radio" name="food1" value="both">뭐든
+        </form>
+	</body>
+</html>
+
+8.
+<!doctypehtml>
+<html>
+	<head> 
+		<metacharset="UTF-8">
+        <title>확인문제 8번</title>
+        <style>
+            h2 { background-color: yellow; color: gray; }
+            strong { color: aqua; }
+        </style>
+	</head>
+	<body>
+		<h2>HTML 확인문제</h2>
+        안녕하세요, <strong>아이유</strong>입니다. <br>
+        반갑습니다!
+	</body>
+</html>

@@ -1,0 +1,157 @@
+body {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; /* 화면 전체 높이를 사용 */
+    margin: 0; 
+}
+
+.setting-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    width: 100%; 
+    max-width: 100%;
+    padding: 10px; 
+    box-sizing: border-box; 
+    border: 1px solid #cdcdcd;
+    border-radius: 10px;
+}
+
+.title-box {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 100%; 
+    height: 5vh;
+    background-color: #f0f0f0; 
+    box-sizing: border-box;
+    margin-bottom: 20px; 
+    border-radius: 10px;
+}
+
+.title-inner-box {
+    width: 100%;
+    font-size: 1.2rem;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.report-box {
+    padding: 5px;
+    transition: 0.1s; 
+    cursor: pointer;
+}
+.report-box:hover {
+    font-weight: bold; 
+}
+
+.delete-account-box{
+    padding: 5px;
+    transition: 0.1s; 
+    cursor: pointer;
+}
+.delete-account-box:hover {
+    font-weight: bold; 
+}
+
+.report-container, .delete-account-container {
+    margin-bottom: 10px; 
+}
+
+/* 사용자 신고 모달창 */
+.report-modal {
+    display: none; /* 모달창 숨김 */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.report-modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 25px;
+    border: 1px solid #888;
+    width: 80%;
+    position: fixed;
+    max-width: 300px;
+    height: 450px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+
+    left: 50%; /* 화면 가로 중앙에 위치 */
+    top: 50%; /* 화면 세로 중앙에 위치 */
+    transform: translate(-50%, -50%); /* 화면 중앙으로 이동 */
+    
+}
+
+.report-modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.report-modal-close:hover,
+.report-modal-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.report-title {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.report-id {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.report-id-content {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+
+.report-reason {
+    margin-bottom: 10px;
+    padding: 5px;
+
+}
+
+.report-reason-content {
+    width: calc(100% - 22px);
+    height: 150px;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+
+.report-btn {
+  background-color: #F38F3D;
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  cursor: pointer; 
+  margin-left: auto;
+  float: right;
+  transition: 0.1s;
+  font-size: 0.8rem;
+  font-family: NeoDunggeunmo;
+}      
+
+.report-btn:hover {
+    background-color: #E9722E;
+}
+

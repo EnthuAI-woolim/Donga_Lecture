@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat App</title>
+</head>
+<body>
+    <div id="chat"></div>
+    <input type="text" id="messageInput" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+    
+    <script> // html안에 로직을 넣을 때, <script>를 사용함
+        const ws = new WebSocket('ws://localhost:8080');
+        const chat = document.getElementById('chat'); // div안의 id태그에서 요소를 가져옴
+        const messageInput = document.getElementById('messageInput'); // sendMessage()에서 매개변수로 받음
+
+        // 다른 사람이 메세지를 보낸 것을 감지하고 나의 화면에 뿌리는 함수
+        // onmessage : 메세지가 오는 것을 감지함
+        ws.onmessage = function(event) {
+            // event.data가 Blob 인스턴스일 경우 FileReader를 사용해서 읽어오기
+            if (event.data instanceof Blob) {
+                const reader = new FileReader();
+                reader.onload = function() {
+                    const message = document.createElement('p');
+                    message.textContent = reader.result;
+                    chat.appendChild(message);
+                };
+                reader.readAsText(event.data);
+            } else {
+                // 메시지가 문자열인 경우, 직접 표시
+                const message = document.createElement('p');
+                message.textContent = event.data;
+                chat.appendChild(message); // 메세지를 붙여줌
+            }
+        };
+
+        // 내가 작성한 메세지를 보내는 함수
+        function sendMessage() {
+            const message = messageInput.value;
+            ws.send(message);
+            messageInput.value = '';
+        }
+    </script>
+</body>
+</html>

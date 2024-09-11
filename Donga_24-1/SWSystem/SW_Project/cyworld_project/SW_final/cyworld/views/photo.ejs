@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/stylesheets/photo.css">
+<script>
+  window.config = {
+      myPage: "<%= myPage %>",
+      // 다른 설정 값들도 여기에 추가
+  };
+</script>
+
+
+<div class="photo-write-box">
+  <button class="photo-write-button font-neo" id="openImageModal">사진 등록하기</button>
+</div>
+
+<!-- 모달 -->
+<div id="modal" class="modal">
+  <div class="modal-content clearfix">
+    <span id="modal-close" class="modal-close">&times;</span>
+    <h2 class="modal-title">사진을 등록하세요.</h2>
+    <form id="photoForm">
+      <div class="photo-modal-box">
+        <label for="imageUrl" class="modal-label">이미지 URL:</label>
+        <input type="imageUrl" id="imageUrl" name="imageUrl" class="modal-input" required>
+      </div>
+      <div class="photo-modal-box">
+        <label for="title" class="modal-label">제목:</label>
+        <textarea id="title" name="title" rows="2" cols="50" class="modal-input" required></textarea>
+      </div>
+      <div class="photo-modal-box">
+        <label for="content" class="modal-label">내용:</label>
+        <textarea id="content" name="content" rows="5" cols="50" class="modal-input" required></textarea>
+      </div>
+        <button type="button" id="write" class="photo-modal-button font-neo">등록하기</button>
+    </form>
+  </div>
+</div>
+
+<!-- 모달(구현x) -->
+<div id="imageModal" class="modal">
+  <div class="modal-content">
+    <span id="modal-close" class="modal-close">&times;</span>
+    <img id="modal-img" class="modal-img" />
+    <div id="caption"></div>
+    <div class="comment-input">
+      <textarea id="comment" placeholder="댓글을 입력하세요"></textarea>
+      <button id="comment-submit" onclick="submitComment()">댓글 작성</button>
+    </div>
+    <div id="comment-box" class="comment-box"></div> <!-- 댓글을 표시할 공간 -->
+  </div>
+</div>
+
+
+  <!-- 업로드된 이미지가 여기에 표시됩니다 -->
+   <article>
+    <% if (photoListDto && photoListDto.length > 0) { %>
+      <% photoListDto.forEach(function(photo) { %>
+        <div class="photo-entry">
+          <div class="photo">
+            <button class="photo-delete-button" onclick="deletePhoto('<%= photo.photo_id %>')">삭제</button>
+            <h2 class="photo-title"><%= photo.title %></h2>
+            <img src="<%= photo.photo_url %>" alt="<%= photo.title %>" class="photo-url" />
+            <div class="photo-content"><%= photo.content %></div>
+            
+          </div>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <div class="no-image-msg" style="text-align: center; color: #666;">등록된 사진이 없습니다.</div>
+    <% } %>
+   </article>
+
+        
+      
+<script src="/functions/f_photo.js"></script>

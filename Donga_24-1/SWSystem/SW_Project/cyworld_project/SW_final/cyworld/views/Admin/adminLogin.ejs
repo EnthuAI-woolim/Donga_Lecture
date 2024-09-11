@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/stylesheets/login.css" />
+  <link rel="stylesheet" href="/stylesheets/font.css">
+</head>
+<body>
+
+  <div class="auth-card">
+
+    <div class="auth-card-title-box">
+      <div class="logo-img-box">
+        <img class="logo-img" src = "/images/Cyworld-logo.png">
+      </div>
+      <div class="auth-card-title-text">관리자 로그인</div>
+    </div>
+
+    <div class="auth-inner-box">
+        <div class="auth-card-top-input-container">
+          <div class="input-box">
+            <div class="input-box-label">관리자 아이디</div>
+            <div class="input-box-container">
+              <input class="auth-input" type="text" id="id" name="id" placeholder="아이디를 입력해주세요." required/>
+            </div>
+          </div>
+
+          <div class="input-box">
+            <div class="input-box-label">관리자 비밀번호</div>
+            <div class="input-box-container">
+              <input class="auth-input" type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요." required/>
+            </div>
+          </div>
+        </div>
+      <div class="auth-card-bottom">
+        
+        <div class="auth-card-bottom-button" id="login-button">로그인</div>
+        
+      </div>
+    </div>
+  </div>
+
+  <script src="/functions/Admin/f_adminLogin.js"></script>
+  
+</body>
+</html>
+

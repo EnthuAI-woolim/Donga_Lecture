@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="/stylesheets/setting.css">
+<div class="setting-container">
+    <div class="title-box">
+        <div class="title-inner-box"><%= userId %> 님, 반갑습니다.</div>
+    </div>
+    <div class="report-container">
+        <div class="report-box" id="reportButton">🚨 사용자 신고</div>
+    </div>
+    <div class="delete-account-container">
+        <div class="delete-account-box" id="delete-button">➡️ 회원 탈퇴</div>
+    </div>
+</div>
+
+<!-- 사용자 신고 모달창 -->
+<div id="reportModal" class="report-modal">
+    <div class="report-modal-content">
+        <span class="report-modal-close">&times;</span>
+        <h2>사용자 신고</h2>
+        <p class="report-title">신고할 사용자의 정보를 입력하세요.</p>
+        <!-- 신고 양식 추가 -->
+        <form id="reportForm">
+            <label for="user-id" class="report-id">사용자 ID:</label>
+            <input type="text" id="user-id" name="user-id" class="report-id-content"><br><br>
+            <label for="reason" class="report-reason">신고 사유:</label><br>
+            <textarea id="reason" name="reason" rows="4" cols="50" class="report-reason-content"></textarea><br><br>
+            <button type="submit" class="report-btn font-neo">신고하기</button>
+        </form>
+    </div>
+</div>
+<div id="userIdDiv" style="display: none;"><%= userId %></div>
+<script src="/functions/f_setting.js"></script>

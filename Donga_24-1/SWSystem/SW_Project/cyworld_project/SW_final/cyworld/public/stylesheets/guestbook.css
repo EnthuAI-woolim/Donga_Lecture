@@ -1,0 +1,399 @@
+body {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; /* 화면 전체 높이를 사용 */
+  margin: 0; 
+}
+/* 공통 상자 스타일 */
+.content-box {
+  position: relative;
+}
+
+/* 방명록 스크롤 상자 */
+.guestbook-scrollbox {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  right: 15px;
+  bottom: 15px;
+  overflow: auto;
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+/* 방명록 박스 */
+.guestbook-box {
+  margin-bottom: 25px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.guestbook-box:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 방명록 제목 */
+.guestbook-title {
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  font-family: "MangoByeolbyeol", sans-serif;
+  background-color: rgba(216, 216, 216, 0.9);
+  color: #333;
+  border-bottom: 2px solid #ccc;
+}
+
+.guestbook-date {
+  font-size: 0.9rem;
+  color: #666;
+  margin-left: auto;
+  padding-right: 1rem;
+}
+
+/* 방명록 내용 */
+.guestbook-contents {
+  display: flex;
+  align-items: flex-start;
+  padding: 1rem;
+  gap: 1rem;
+}
+
+/* 방명록 텍스트 */
+.guestbook-text {
+  flex: 1;
+  font-size: 1rem;
+  font-family: "KyoboHand", sans-serif;
+  color: #444;
+  padding: 1rem;
+  line-height: 1.5;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .guestbook-contents {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .guestbook-text {
+    border-left: none;
+    border-top: 2px solid #e6e6e6;
+    text-align: center;
+  }
+}
+
+/* 댓글 모달 */
+
+/* 댓글 버튼 스타일 */
+.comment-botton-box {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.comment-button {
+  background-color: #bbbbbb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  float: right;
+  margin-bottom: 0px;
+  margin-right: 10px;
+  transition: background-color 0.1s;
+  font-family: "KyoboHand";
+  box-sizing: border-box;
+}
+
+.comment-button:hover {
+  background-color: #a8a8a8
+}
+
+/* 댓글 입력 폼 컨테이너 */
+.comment-form-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.submit-comment-container {
+  display: flex;
+  justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+}
+
+.submit-comment-btn {
+  background-color: #e9bc3f;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  font-family: KyoboHand;
+}
+
+.submit-comment-btn:hover {
+  background-color: #f1b636;
+}
+
+/* 댓글 입력 폼 스타일 */
+.comment-form {
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 10px;
+  width: 96%;
+  box-sizing: border-box;
+}
+
+.comment-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.comment-form textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: vertical;
+  font-family: KyoboHand;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: #fff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.comment-form button {
+  background-color: #F38F3D;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.1s;
+  font-size: 1rem;
+  font-family: KyoboHand;
+  align-self: flex-end; /* 버튼을 오른쪽으로 정렬 */
+  margin-top: 5px;
+}
+
+.comment-form button:hover {
+  background-color: #E9722E;
+}
+
+/* 댓글 섹션 스타일 */
+.comment-section {
+  width: 90%;
+  background-color: #f0f4f8;
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* 댓글 텍스트 스타일 */
+.comment-text {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  font-family: "KyoboHand", sans-serif;
+}
+
+/* 댓글 날짜 스타일 */
+.comment-date {
+  font-size: 0.8rem;
+  color: #777;
+  text-align: right;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+.guestbook-write-btn-box {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.guestbook-write-btn {
+  display: block;
+  border-radius: 5px;
+  border: 1.5px dashed #999999;
+  padding: 0.4rem 1rem;
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-family: "NeoDunggeunmo";
+  color: #333333;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.guestbook-write-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* 모달창 */
+
+.guestbook-modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.guestbook-modal-close:hover,
+.guestbook-modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.guestbook-modal {
+  display: none; /* 모달창 숨김 */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.guestbook-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 500px;
+  height: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.guestbook-write-title {
+  margin-top: 30px;
+  padding: 5px;
+}
+
+.guestbook-write-content {
+  width: calc(100% - 22px);
+  height: 200px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+
+}
+
+.guestbook-modal-btn {
+  background-color: #F38F3D;
+  color: white; 
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px; 
+  cursor: pointer; 
+  margin-left: auto;
+  float: right;
+  transition: 0.1s;
+  font-size: 0.8rem;
+  font-family: NeoDunggeunmo;
+}
+
+.guestbook-modal-btn:hover {
+  background-color: #E9722E;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+h2 {
+ margin-top: 0px;
+}
+
+.comment-button-box {
+  display: flex;
+  justify-content: flex-end; /* 버튼을 오른쪽에 정렬 */
+  gap: 10px; /* 버튼 사이의 간격 설정 */
+  margin-top: 10px; /* 댓글과 삭제 버튼 위의 여백 설정 */
+  margin-right: 10px; /* 오른쪽 여백 추가 */
+  margin-bottom: 10px; /* 아래쪽 여백 추가 */
+}
+
+.comment-button {
+  background-color: #fcbc5d; /* 댓글 버튼 배경색 (파란색) */
+  color: white; /* 글자색 */
+  border: none; /* 테두리 없음 */
+  border-radius: 5px; /* 모서리 둥글게 */
+  padding: 3px 5px; /* 내부 여백 설정, 상하 5px, 좌우 10px */
+  cursor: pointer; /* 포인터 커서 */
+  font-size: 0.9rem; /* 글자 크기 */
+  transition: background-color 0.3s ease; /* 배경색 전환 */
+  font-family: "KyoboHand";
+  margin: 0 5px; /* 버튼 간의 좌우 여백 추가 */
+}
+
+.guestbook-delete-button {
+  background-color: #434141; /* 삭제 버튼 배경색 (어두운 회색) */
+  color: white; /* 글자색 */
+  border: none; /* 테두리 없음 */
+  border-radius: 5px; /* 모서리 둥글게 */
+  padding: 3px 5px; /* 내부 여백 설정, 상하 5px, 좌우 10px */
+  cursor: pointer; /* 포인터 커서 */
+  font-size: 0.9rem; /* 글자 크기 */
+  transition: background-color 0.3s ease; /* 배경색 전환 */
+  font-family: "KyoboHand";
+  margin: 0 5px; /* 버튼 간의 좌우 여백 추가 */
+}
+
+.guestbook-comment-delete-button {
+  float: right; /* 오른쪽으로 배치 */
+  background: none;
+  color: #434141;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-family: "Arial", sans-serif;
+  transition: color 0.3s ease; /* 색상 전환 효과 */
+}
+
+.guestbook-comment-delete-button:hover {
+  color: #606060;
+}

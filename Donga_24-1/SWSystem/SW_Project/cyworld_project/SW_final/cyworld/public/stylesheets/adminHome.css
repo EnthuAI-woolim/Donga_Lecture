@@ -1,0 +1,133 @@
+body {
+  background-color: #f0f0f0;
+  background-image: url("/images/pattern.png");
+  background-size: 100px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 16px;
+  font-family: "NeoDunggeunmo";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 1000px;
+  height: 800px;
+  margin: 100px auto;
+  position: relative;
+  flex-shrink: 0; /* 모든 자식 요소가 쪼그라들지 않도록 설정 */
+}
+
+/**************** 상단 header 박스 ****************/
+.header {
+  width: 100%; 
+  height: 50px; 
+  margin: 0 auto;
+}
+
+.back-myhome {
+  display: flex;
+  color: #3e3e3e;
+  font-family: "NeoDunggeunmo";
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  border-bottom: 1px dashed grey;
+  margin: 12px 5px 10px;
+  background-color: rgba(255, 255, 255, 0.841);
+  padding:5px;
+}
+
+.back-myhome:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/**************** 싸이월드 메인 레이아웃 ****************/
+.bookcover {
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  border: 1px solid #cfcfcf;
+  width: 100%;
+  height: 100%; /* 최대 높이 제한 */
+  max-height: 750px; /* 최대 높이 설정 */
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* 세로 스크롤 추가 */
+}
+
+.logo-title-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+  box-sizing: border-box;
+}
+
+.logo-text {
+  font-family: "NeoDunggeunmo";
+  font-size: 35px;
+  color:rgb(0, 0, 0);
+  letter-spacing: 1px;
+}
+
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.admin-section {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #cfcfcf;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-box {
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* 세로 스크롤 추가 */
+  font-family:'Lucida Sans';
+
+  max-height: 500px;
+}
+
+.member-list-title {
+  display: flex;
+  border-bottom: 1px solid #cfcfcf;
+}
+
+.member-list-container {
+  display: flex;
+}
+
+.member-items {
+  width: 200px;
+  margin: 5px;
+}
+
+
+

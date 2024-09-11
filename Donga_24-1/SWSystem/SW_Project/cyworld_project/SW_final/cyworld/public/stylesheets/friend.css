@@ -1,0 +1,62 @@
+.friend-page-box {
+    /* border: 1px solid #cdcdcd; */
+}
+
+.friend-page-menu-box {
+    display: flex;
+    padding: 3px 10px 0px;
+}
+
+.friend-page-menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-top: 1px solid #cdcdcd;
+    border-right: 1px solid #cdcdcd;
+    border-left: 1px solid #cdcdcd;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+    width: 80px;
+    padding: 5px 0px;
+    cursor: pointer;
+}
+
+.friend-page-menu-text {
+    font-size: 17px;
+}
+
+.freind-page-list-box {
+    background-color: white;
+    flex: 2;
+    border-radius: 10px;
+    border: 1px solid #cdcdcd;
+
+    min-height: 440px;
+    padding: 15px 15px;
+}
+
+
+.friend-list-item {
+    display: flex;
+    align-items: center;
+
+    margin: 15px 7px;
+}
+
+.friend-profile {
+    margin-right: 8px;
+  
+    width: 32px;
+    height: 32px;
+  
+    border-radius: 32px;
+    background-position: 50% 50%;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.follow-btn {
+    cursor: pointer;
+}

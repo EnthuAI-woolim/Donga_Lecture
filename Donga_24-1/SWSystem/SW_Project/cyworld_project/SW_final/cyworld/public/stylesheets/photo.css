@@ -1,0 +1,242 @@
+/* static/picture.css */
+body {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; /* 화면 전체 높이를 사용 */
+  margin: 0; 
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh; /* 화면 전체 높이에 맞추기 위해 추가 */
+}
+
+
+.photo-write-box {
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  padding: 5px;
+}
+
+.photo-entry {
+  display: flex;
+  flex-wrap: wrap; /* 이미지 줄 바꿈 처리 */
+  justify-content: center;
+  gap: 20px; /* 이미지 간격 조절 */
+  padding: 0px;
+  max-height: 100%; /* 이미지가 부모 요소를 넘지 않도록 최대 너비 설정 */
+}
+
+.photo-entry img {
+  width: 100%; /* 각 이미지가 줄에 균등하게 표시되도록 설정 */
+  margin: 20px; /* 이미지 간격 조절 */
+  box-sizing: border-box;
+  object-fit: cover; /* 이미지를 정사각형 비율로 조절합니다. */
+  aspect-ratio: 1/1; /* 이미지의 가로 세로 비율을 1:1로 유지합니다. */
+  max-width: 100%; /* 이미지가 부모 요소를 넘지 않도록 최대 너비 설정 */
+  max-height: 400px; /* 이미지의 최대 높이를 설정하여 화면에 맞게 표시합니다. */
+  object-position: center; /* 이미지를 중앙 정렬하고 아래쪽에 배치 */
+}
+
+
+
+.comment-input textarea {
+  width: calc(100% - 23px); /* 너비를 조금 줄여서 테두리와 겹치지 않게 함 */
+  height: 80px; /* 높이 조정 */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none; /* 사용자가 크기 조정 못하도록 함 */
+}
+
+.no-image-msg { 
+  font-size: 16px; /* 폰트 크기 조정 */
+  text-align: center; /* 가운데 정렬 */
+  position: fixed; /* 고정 위치 설정 */
+  top: 50%; /* 상단에서 절반 정도로 위치 */
+  left: calc(50% + 70px); /* 좌측에서 절반 정도로 위치 후 10px 오른쪽으로 이동 */
+  transform: translate(-50%, -50%); /* 가운데 정렬 */
+}
+
+.photo-write-button {
+  display: inline-block;
+  border-radius: 5px;
+  border: 1.5px dashed #999999;
+  padding: 0.4rem 1rem;
+  margin-left: auto;
+  font-size: 0.8rem;
+  font-family: "NeoDunggeunmo";
+  color: #333333;
+  background-color: #f4f4f4;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.photo-write-button:hover {
+  background-color: #e0e0e0;
+}
+
+.photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 500px; /* 최대 너비 설정 */
+  width: 300%; /* 가로 전체 너비 */
+  margin: 10px; /* 간격 설정 */
+  text-align: center; /* 내용 가운데 정렬 */
+  position: relative; /* 상대 위치 설정 */
+}
+
+.photo-title {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: "KyoboHand";
+  color: #f3a135;
+}
+
+.photo-content {
+  display: flex;
+  width: 100%;
+  margin-bottom: 30px;
+  color: #666666;
+}
+
+.photo-url {
+  width: 100%; /* 이미지 너비 100%로 설정 */
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.photo-delete-button {
+  background-color: #434141; 
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 2px 5px; 
+  cursor: pointer; 
+  font-size: 1rem; 
+  transition: background-color 0.3s ease;
+  font-family: "KyoboHand";
+  position: absolute;
+  bottom: 10px; 
+  right: 10px; 
+  margin: 10px 10px 10px 20px;
+  transition: 0.1s;
+}
+
+.photo-delete-button:hover {
+  background-color: #5a5757;
+}
+
+.photo-modal-box{
+  display: flex;
+  justify-content: center; 
+  align-items: center;  
+  max-width: 100%;
+  margin-bottom: 15px;
+}
+
+.modal-label {
+  
+  width: 70px;
+}
+.modal-title {
+  font-family: "KyoboHand";
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.photo-modal-button {
+  background-color: #F38F3D;
+  color: white; /* 버튼 텍스트 색상 */
+  padding: 10px 20px; /* 버튼 내부 여백 */
+  border: none; /* 버튼 테두리 없음 */
+  border-radius: 5px; /* 버튼 테두리 둥글게 */
+  cursor: pointer; /* 커서를 포인터로 변경 */
+  margin-left: auto;
+  float: right;
+  transition: 0.1s;
+  font-size: 0.8rem;
+}
+
+.photo-modal-button:hover {
+  background-color: #E9722E;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.modal-input {
+  width: calc(100% - 50px);
+  padding: 10px;
+  margin-bottom: 0px;
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+}
+
+
+
+/* 모달 스타일 */
+.modal {
+  display: none; /* 모달 초기에는 보이지 않도록 설정 */
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경색 */
+}
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 30px;
+  border: 1px solid #888;
+  width: 500px;
+  height: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.modal-img {
+  max-width: 95%; /* 100% 대신 95%로 변경 */
+  max-height: 95vh; /* 90vh 대신 95vh로 변경 */
+  display: block;
+  margin: 0 auto;
+}
+
+.modal-close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-left: auto;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

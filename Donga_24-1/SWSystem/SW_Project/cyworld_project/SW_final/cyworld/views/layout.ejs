@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>MINI HOMEPAGE</title>
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/stylesheets/font.css">
+    <link rel="stylesheet" href="/stylesheets/layout.css">
+    <link rel="stylesheet" href="/stylesheets/home.css">
+    <!-- <link rel="stylesheet" href="/stylesheets/post.css">
+    <link rel="stylesheet" href="/stylesheets/photo.css"> -->
+    <!-- <link rel="stylesheet" href="/stylesheets/guestbook.css">
+    <link rel="stylesheet" href="/stylesheets/friend.css">
+    <link rel="stylesheet" href="/stylesheets/setting.css"> -->
+
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/2e4fe0201a.js" crossorigin="anonymous"></script>
+    
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="menu-bar">
+          <div class="search-btn" id="search-button">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <div class="back-myhome" id="myhome-button">내 홈으로 가기</div>
+          <div class="logout-button" id="logout-button">로그아웃</div>
+        </div>
+      </div>
+      <div class="bookcover">
+        <div class="logo-title-box">
+          <div class = logo>
+            <div class="logo-img-box">
+              <img class="logo-img" src = "/images/Cyworld-logo.png">
+            </div>
+            <div class="logo-text">CYWORLD</div>
+          </div>
+        </div>
+
+        <div class="bookdot">
+          <div class="page">
+            <div class="profile-container">
+              <div class="header profile-title font-neo">
+                TODAY<span class="color-red"><%= mainhomeDto.getToday() %></span>| TOTAL <%= mainhomeDto.getTotal() %>
+              </div>
+              <div class="box profile-box">
+                <div class="profile-image">
+                  <img
+                    class="profile-image-img"
+                    src="<%= mainhomeDto.getImageUrl() %>"
+                    alt="프로필 이미지"
+                    id="profile-img"
+                  />
+                  <button class="edit edit-margin font-neo" id="profile-edit">edit</button>
+                  <input type="file" id="profile-input" class="file-input" accept="image/*">
+                </div>
+                <div class="profile-text">
+                  <span id="profile-text-display"><%= mainhomeDto.getIntro() %></span>
+                  <input type="text" id="profile-text-input" class="profile-text-input">
+                  <button class="edit edit-margin font-neo" id="profile-text-edit">edit</button>
+                </div>
+                <div class="profile-username">
+                  <div class="nickname">
+                    <span id="nickname-display"><%= mainhomeDto.getNickname() %></span>
+                    <input type="text" id="nickname-input" class="nickname-input">
+                  </div>
+                  <div>
+                    <button class="edit edit-margin font-neo" id="nickname-edit">edit</button>
+                  </div>
+                </div>
+                <div class="profile-dropdown">
+                  <div class="dropdown-button">
+                    <div class="dropdown-title">파도타기</div>
+                    <div class="triangle-down"></div>
+                  </div>
+                  <div class="dropdown-content">
+                    <a href="#" target="_blank">블로그 바로가기</a>
+                    <a href="#" target="_blank">페이스북 바로가기</a>
+                    <a href="#" target="_blank">인스타그램 바로가기</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="content-container">
+              <div class="header content-title">
+                <div class="content-title-name">
+                  <span id="title-display"><%= mainhomeDto.getTitle() %></span>
+                  <input type="text" id="title-input" class="title-input">
+                </div>
+                <button class="edit font-neo" id="title-edit">edit</button>
+                <div class="content-title-url">http://localhost:3000/home/<%= id %></div>
+              </div>
+
+              <div class="box content-box">
+                <%- body %>
+              </div>
+              
+            </div>
+            <div class="menu-container">
+              <div class="menu-button">
+                <a href="/home/<%= id %>"><button>홈</button></a>
+                <a href="/post/<%= id %>"><button>다이어리</button></a>
+                <a href="/photo/<%= id %>"><button>사진첩</button></a>
+                <a href="/guestbook/<%= id %>"><button>방명록</button></a>
+                <a href="/friend/<%= id %>"><button>친구목록</button></a>
+
+                <a href="/setting/<%= id %>"><button id="setting-button">설정</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 검색창 모듈 -->
+    <div class="search-modal" id="searchModal">
+      <div class="search-modal-content">
+        <span class="search-modal-close" id="closeSearchModal" >&times;</span>
+        <h2 class="search-modal-title">친구 찾기</h2>
+        <form id="SearchForm">
+          <label class="search-modal-label" >아이디 입력</label>
+          <div class="search-id-container">
+            <input class="search-modal-input" id="search-id"  required>
+              <div class="search-modal-button" id="search-id-button">
+                <i class="fa-solid fa-magnifying-glass"></i>
+              </div>
+            <br><br>
+          </div>
+          <div class="userList-scrollbox" id="userScrollbox" style="display: none;"></div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      window.config = {
+        id: "<%= id %>",
+        userId: "<%= userId %>",
+        myPage: "<%= myPage %>",
+        userListDto: "<%= userListDto %>"
+      };
+    </script>
+    <div id="layout-id" style="display: none;"><%= id %></div>
+    <div id="layout-userId" style="display: none;"><%= userId %></div>
+    <div id="layout-myPage" style="display: none;"><%= myPage %></div>
+    <script src="/functions/f_layout.js"></script>
+    <%- script %>
+
+  </body>
+</html>

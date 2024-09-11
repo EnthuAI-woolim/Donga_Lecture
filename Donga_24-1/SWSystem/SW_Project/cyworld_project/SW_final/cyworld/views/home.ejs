@@ -1,0 +1,54 @@
+<div class="box-title">Updated news</div>
+<div class="news-flex-box">
+  <div class="news-box">
+    <div class="news-row">
+      <div class="news-category category-pic"><span id="news-content"><%= updatednewsDto.getTableNames(0) %></span></div>
+      <div class="news-title">
+        <span id="news-content"><%= updatednewsDto.getTitles(0) %></span>
+      </div>
+    </div>
+    <div class="news-row">
+      <div class="news-category category-post"><span id="news-content"><%= updatednewsDto.getTableNames(1) %></span></div>
+      <div class="news-title">
+        <span id="news-content"><%= updatednewsDto.getTitles(1) %></span></div>
+    </div>
+    <div class="news-row">
+      <div class="news-category category-post"><span id="news-content"><%= updatednewsDto.getTableNames(2) %></span></div>
+      <div class="news-title"><span id="news-content"><%= updatednewsDto.getTitles(2) %></span></div>
+    </div>
+    <div class="news-row">
+      <div class="news-category category-pic"><span id="news-content"><%= updatednewsDto.getTableNames(3) %></span></div>
+      <div class="news-title"><span id="news-content"><%= updatednewsDto.getTitles(3) %></span></div>
+    </div>
+  </div>
+  <div class="update-box">
+    <div class="menu-row">
+      <div class="menu-item">총 게시물
+        <span class="menu-num"></span><%= updatednewsDto.getTotalCount() %></div>
+      <div class="menu-item">다이어리<span class="menu-num"><%= updatednewsDto.getPostCount() %></span></div>
+    </div>
+    <div class="menu-row">
+      <div class="menu-item">사진첩<span class="menu-num"><%= updatednewsDto.getPhotoCount() %></span></div>
+      <div class="menu-item">방명록<span class="menu-num"><%= updatednewsDto.getGuestbookCount() %></span></div>
+    </div>
+  </div>
+</div>
+<div class="miniroom">
+  <div class="box-title">Miniroom</div>
+  <div class="miniroom-box" id="image-container">
+    <p id="miniroom-text"></p>
+    <img
+    class="miniroom-box-img"
+    src="<%= miniroomDto.getImageUrl() %>"
+    alt="배경 이미지"
+    id="miniroom-img"
+  />
+    <button class="edit edit-margin font-neo" id="miniroom-edit">edit</button>
+    <input type="file" id="miniroom-upload" class="file-input" accept="image/*">
+
+  </div>
+</div>
+
+
+
+<script src="/functions/f_home.js"></script>

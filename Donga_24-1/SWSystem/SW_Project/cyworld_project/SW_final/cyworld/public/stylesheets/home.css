@@ -1,0 +1,91 @@
+.news-flex-box {
+  flex: 0 0 auto;
+  margin-bottom: 2rem;
+  display: flex;
+  font-size: 1rem;
+}
+
+.news-box {
+  flex: 1;
+}
+
+.update-box {
+  flex: 1;
+}
+
+.box-title {
+  font-family: "KOTRA_BOLD-Bold";
+  border-bottom: 1px solid grey;
+  color: #ffbc47;
+  margin-bottom: 9px;
+}
+
+.news-row {
+  display: flex;
+  font-size: 1rem;
+  margin: 8px 0;
+}
+
+.news-category {
+  padding: 3px;
+  margin-right: 6px;
+  color: white;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.category-pic {
+  background-color: #f15f5f;
+}
+
+.category-post {
+  background-color: #617dc1;
+}
+
+.menu-row {
+  display: flex;
+  border-bottom: 1px dashed grey;
+  margin: 10px;
+}
+
+.menu-item {
+  flex: 1;
+}
+
+.menu-num {
+  font-family: "NeoDunggeunmo";
+  font-size: 16px;
+  padding-left: 6px;
+  color: #003399;
+}
+
+.miniroom {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.miniroom-box {
+  flex: none;
+}
+
+.miniroom-box-img {
+  width: 100%;
+  height: 100%;
+}
+
+.file-input {
+  display: none;
+}
+
+.edit-button, .upload-label {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.nickname-input, .title-input, .profile-text-input {
+  display: none;
+}

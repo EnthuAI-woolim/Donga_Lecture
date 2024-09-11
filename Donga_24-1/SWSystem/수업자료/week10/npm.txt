@@ -1,0 +1,3 @@
+npm
+node package mangement
+개발자들이 올려놓은 사이트에서 다운받는 명령어

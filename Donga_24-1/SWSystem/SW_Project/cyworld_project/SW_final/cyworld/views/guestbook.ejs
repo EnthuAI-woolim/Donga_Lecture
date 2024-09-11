@@ -1,0 +1,87 @@
+<link rel="stylesheet" href="/stylesheets/guestbook.css">
+<script>
+    window.config = {
+        myPage: "<%= myPage %>",
+        currentUserId: "<%= userId %>"  // 서버에서 전달된 userId를 사용
+    };
+  </script>
+
+<!-- 모달창 -->
+<div class="guestbook-modal" id="guestbook-modal">
+    <div class="guestbook-modal-content">
+        <span class="guestbook-modal-close">&times;</span>
+        <h2>방명록을 작성하세요.</h2>
+        <textarea class="guestbook-write-content" id="content" name="content" rows="4" cols="50" placeholder="내용을 입력하세요"></textarea>
+        <button id="writeGuestbook" onclick="submitGuestbook()" class="guestbook-modal-btn">작성하기</button>
+    </div>
+</div>
+
+<div class="guestbook-scrollbox">
+    <div class="guestbook-write-btn-box">
+        <button id="guestbook-open-btn" class="guestbook-write-btn">방명록 작성</button>
+    </div>
+
+    <% if (guestbookListDto && guestbookListDto.length > 0) { %>
+        <% let currentGuestbookId = -1; %>
+        <% guestbookListDto.forEach(function(entry) { %>
+            <% if (entry.guestbook_id !== currentGuestbookId) { %>
+                <!-- 방명록 -->
+                <div class="guestbook-box">
+                    <div class="guestbook-title">
+                        <i class="fas fa-home"></i>
+                        &nbsp;<span><%= entry.visitor_id %> </span>
+                        <div class="guestbook-date"> 
+                            <%= new Date(entry.created_at).toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %> 
+                        </div>
+                    </div>
+                    <div class="guestbook-contents">
+                        <div class="guestbook-text">
+                            <%= entry.content %>
+                        </div>
+                    </div>
+
+                    <!-- 댓글 및 삭제 버튼 -->
+                    <div class="comment-button-box">
+                        <button class="comment-button" onclick="toggleCommentForm('<%= entry.guestbook_id %>')">댓글</button>
+                        <button class="guestbook-delete-button" id="deleteguestbook" onclick="deleteGuestbook('<%= entry.guestbook_id %>')">삭제</button>
+                    </div>
+
+                    <div class="comment-form" id="comment-form-<%= entry.guestbook_id %>" style="display: none;">
+                        <textarea id="comment_content_<%= entry.guestbook_id %>" name="comment_content" rows="2" cols="50" placeholder="댓글 내용을 입력하세요"></textarea>
+                        <br>
+                        <div class="submit-comment-container">
+                            <button class="submit-comment-btn" onclick="submitComment('<%= entry.guestbook_id %>')">댓글 작성</button>
+                        </div>
+                    </div>
+
+                    <!-- 댓글 표시 -->
+                    <% guestbookListDto.forEach(function(comment) { %>
+                        <% if (comment.guestbook_id === entry.guestbook_id && comment.comment_text) { %>
+                            <div class="comment-section">
+                                <div class="comment-vitsitor-id">
+                                    <i class="fas fa-home"></i>
+                                    <strong><%= comment.mem_id %></strong>
+                                    <button class="guestbook-comment-delete-button" onclick="deleteGuestbookcomment('<%= entry.comment_id %>')">  
+                                </div>
+                                <div class="comment-text">
+                                    <%= comment.comment_text %>
+                                </div>
+                                
+                                <div class="comment-date">
+                                    <%= new Date(comment.comment_created_at).toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }) %> 
+                                </div>
+                            </div>
+                        <% } %>
+                    <% }); %>
+                </div>
+
+                <% currentGuestbookId = entry.guestbook_id; %>
+            <% } %>
+        <% }); %>
+    <% } else { %>
+        <p>등록된 방명록이 없습니다.</p>
+    <% } %>
+</div>
+<div id="idDiv" style="display: none;"><%= id %></div>
+<div id="userId" style="display: none;"><%= userId %></div>
+<script src="/functions/f_guestbook.js"></script>

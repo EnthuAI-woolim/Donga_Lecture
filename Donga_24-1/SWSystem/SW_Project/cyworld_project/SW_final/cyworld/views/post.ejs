@@ -1,0 +1,52 @@
+
+
+<link rel="stylesheet" href="/stylesheets/post.css">
+<div class="diary-write-box">
+    <button id="openDiaryModal" class="diary-write-button font-neo">다이어리 쓰기</button>
+    
+</div>
+    <div class="diary-scrollbox" id="diaryScrollbox">
+        <!-- 다이어리가 표시될 공간 -->
+        <article>
+          <% if (postListDto && postListDto.length > 0) { %>
+              <% postListDto.forEach(function(post) { %>
+                  <div class="diary-entry">
+                      <div class="diary">
+                          <button class="post-delete-button" id="deletepost" onclick="deleteDiary('<%= post.post_id %>')">삭제</button>
+                          <h2><%= post.title %></h2>
+                          <p class="diary-date"><%=new Date(post.created_at).toLocaleString('ko-KR', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })  %></p>
+                          <p class="diary-contents"><%= post.content %></p>
+                      </div>
+                  </div>
+              <% }); %>
+          <% } else { %>
+            <div class="no-image-msg" style="text-align: center; color: #666;">등록된 다이어리가 없습니다.</div>
+          <% } %>
+      </article>
+  </div>
+
+
+<div id="diaryModal" class="modal">
+  <div class="modal-content clearfix">
+    <span id="closeDiaryModal" class="modal-close">&times;</span>
+    <h2 class="modal-title">다이어리를 작성하세요.</h2>
+    <form id="diaryForm" class="diary-form-box">
+      <div class="post-modal-box">
+        <label for="diarytitle" class="modal-label">제목:</label>
+        <input id="diarytitle" name="diarytitle" rows="2" cols="50" class="modal-input" required></input>
+      </div>
+      <div class="post-modal-box">
+        <label for="diaryDate" class="modal-label">날짜:</label>
+        <input type="date" id="diaryDate" name="diaryDate" class="modal-input" required>
+      </div>
+      <div class="post-modal-box">
+        <label for="diaryContent" class="modal-label">내용:</label>
+        <textarea textarea id="diaryContent" name="diaryContent" rows="5" cols="50" class="modal-input" required></textarea>
+      </div>
+      <button type="button" id="write" class="modal-button font-neo" onclick="postHandler()">작성하기</button>
+    </form>
+  </div>
+</div>
+
+
+<script src="/functions/f_post.js"></script>

@@ -1,0 +1,161 @@
+body {
+  background-color: #f0f0f0;
+}
+
+.auth-card {
+    background-color: #f0f0f0;
+    border-radius: 30px;
+    
+    width: 650px;
+    height: 720px;
+    margin: 100px auto;
+    position: relative;
+    padding: 10px 50px 50px 50px; /* 상단, 오른쪽, 하단, 왼쪽 순서 */
+    box-sizing: border-box;
+  }
+
+.logo-img-box {
+    width: 50px;
+    margin: 10px;
+}
+
+.logo-img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  }
+
+.auth-card-title-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  box-sizing: border-box;
+}
+
+.auth-card-title-text {
+  font-family: "NeoDunggeunmo";
+  font-size: 45px;
+  color:rgba(0, 0, 0, 0.8);
+  letter-spacing: 1px;
+}
+
+.auth-inner-box {
+  display: flex;
+  background-color: #ffffff;
+  flex-direction: column;
+  border-radius: 30px;
+  padding : 40px;
+  box-sizing: border-box;
+  margin-top: 1rem;
+}
+
+
+.auth-card-top-input-container {
+  flex: 1;
+  flex-direction: column;
+}
+
+.input-box {
+  margin-top: 10px;
+}
+
+.input-box-label {
+  font-family: "NeoDunggeunmo";
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 19.6px;
+  color:#E66E27;
+  opacity: 80%;
+}
+
+.input-box-container {
+  margin: 5px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  height: 46px;
+  display: flex;
+  align-items: center;
+}
+
+.auth-input {
+    flex: 1 1;
+    font-family: "NeoDunggeunmo";
+    border: none;
+    outline: none;
+    background: none;
+    color: rgba(0, 0, 0);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 19.6px;
+}
+
+.auth-card-bottom {
+  flex:1;
+  flex-direction: column;
+  margin-top: 30px;
+  box-sizing: border-box;
+}
+
+.auth-card-bottom-error-message {
+  margin-bottom: 16px;
+
+  color: rgba(255, 0, 0, 0.7);
+  
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16.8px;
+
+  white-space: pre-line;
+}
+
+.auth-card-bottom-button {
+  border-radius: 46px;
+  padding: 14px;
+  height: 20px;
+  margin-top: 50px;
+
+  background-color: #E66E27;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #ffffff;
+  font-family: "NeoDunggeunmo";
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 19.6px;
+}
+
+.auth-card-bottom-button:hover {
+  cursor: pointer;
+  background-color: #fc813a;
+}
+
+.auth-card-bottom-text {
+  margin-top: 20px;
+
+  height: 20px;
+
+  text-align: center;
+
+  color: rgba(0, 0, 0, 0.7);
+  font-family: "NeoDunggeunmo";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 19.6px;
+}
+
+.auth-emphasis {
+  margin-left: 6px;
+
+  color: black;
+  font-weight: 500;
+}
+
+.auth-emphasis:hover {
+  cursor: pointer;
+}

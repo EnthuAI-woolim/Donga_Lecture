@@ -1,0 +1,10 @@
+(5)
+
+SELECT SUM(price * amount) FROM buy WHERE mem_id = 'BLK';
+
+(6)
+
+SELECT mem_name, debut_date 
+FROM member 
+WHERE addr = '서울'
+ORDER BY debut_date ASC;

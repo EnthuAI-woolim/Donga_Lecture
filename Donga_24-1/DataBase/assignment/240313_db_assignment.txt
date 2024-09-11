@@ -1,0 +1,16 @@
+CREATE DATABASE ywl;
+
+CREATE TABLE sale (
+	member_id CHAR(20) NOT NULL,
+        product_id VARCHAR(45) NOT NULL,
+        sale_date VARCHAR(45) NOT NULL,
+        quantity INT,
+        selling_place VARCHAR(45)
+);
+
+INSERT INTO sale VALUES ('tess', '1', '2024-03-13', '10', '경기');
+INSERT INTO sale VALUES ('hero', '2', '2024-03-13', '20', '서울');
+INSERT INTO sale VALUES ('iyou', '3', '2024-03-13', '30', '인천');
+INSERT INTO sale VALUES ('jyp', '4', '2024-03-13', '40', '경기');
+
+SELECT * FROM sale;
