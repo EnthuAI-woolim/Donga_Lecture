@@ -1,4 +1,3 @@
-# Software_240911
 
 ### 문제. fib(n) 함수를 구현하시오(피보나치 수열) - python style
 
