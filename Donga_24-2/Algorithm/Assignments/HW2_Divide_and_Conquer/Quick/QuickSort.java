@@ -1,33 +1,37 @@
+import java.util.List;
+
 public class QuickSort {
 
-    public <T extends Comparable<T>> T[] sort(T[] array) {
-        doSort(array, 0, array.length - 1);
-        return array;
+    public static void main(String[] args) {
+        List<Integer> numbers = FileUtil.readNumbersFromFile("./input_sort.txt");
+        Integer[] arr = numbers.toArray(new Integer[0]);
+
+        long start = System.nanoTime();
+        quickSort(arr, 0, arr.length-1);
+        long end = System.nanoTime();
+
+        System.out.println("MS : " + (double)(end - start) / 1_000_000);
+
+        FileUtil.writeArrayToFile("./output_quick_sort.txt", arr);
     }
 
-    private static <T extends Comparable<T>> void doSort(T[] array, final int left, final int right) {
+    private static void quickSort(Integer[] array, final int left, final int right) {
         if (left < right) {
-            final int pivot = randomPartition(array, left, right);
-            doSort(array, left, pivot - 1);
-            doSort(array, pivot, right);
+            final int pivot = partition(array, left, right);
+            quickSort(array, left, pivot-1);
+            quickSort(array, pivot, right);
         }
     }
 
-    private static <T extends Comparable<T>> int randomPartition(T[] array, final int left, final int right) {
-        final int randomIndex = left + (int) (Math.random() * (right - left + 1));
-        swap(array, randomIndex, right);
-        return partition(array, left, right);
-    }
-
-    private static <T extends Comparable<T>> int partition(T[] array, int left, int right) {
+    private static int partition(Integer[] array, int left, int right) {
         final int mid = (left + right) >>> 1;
-        final T pivot = array[mid];
+        final int pivot = array[mid];
 
         while (left <= right) {
-            while (less(array[left], pivot)) {
+            while (array[left] < pivot) { // 직접 비교 연산자 사용
                 ++left;
             }
-            while (less(pivot, array[right])) {
+            while (array[right] > pivot) { // 직접 비교 연산자 사용
                 --right;
             }
             if (left <= right) {
@@ -39,12 +43,8 @@ public class QuickSort {
         return left;
     }
 
-    private static <T extends Comparable<T>> boolean less(T v, T w) {
-        return v.compareTo(w) < 0;
-    }
-
-    private static <T> void swap(T[] array, int i, int j) {
-        T temp = array[i];
+    private static void swap(Integer[] array, int i, int j) {
+        Integer temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
