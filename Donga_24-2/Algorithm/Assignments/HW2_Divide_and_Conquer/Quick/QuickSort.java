@@ -3,7 +3,7 @@ import java.util.List;
 public class QuickSort {
 
     public static void main(String[] args) {
-        List<Integer> numbers = FileUtil.readNumbersFromFile("./input_sort.txt");
+        List<Integer> numbers = FileUtil.readNumbersFromFile("../input_sort.txt");
         Integer[] arr = numbers.toArray(new Integer[0]);
 
         long start = System.nanoTime();
@@ -12,36 +12,41 @@ public class QuickSort {
 
         System.out.println("MS : " + (double)(end - start) / 1_000_000);
 
-        FileUtil.writeArrayToFile("./output_quick_sort.txt", arr);
+        FileUtil.writeArrayToFile("../output_quick_sort.txt", arr);
     }
 
     private static void quickSort(Integer[] array, final int left, final int right) {
         if (left < right) {
             final int pivot = partition(array, left, right);
             quickSort(array, left, pivot-1);
-            quickSort(array, pivot, right);
+            quickSort(array, pivot+1, right);
         }
     }
 
     private static int partition(Integer[] array, int left, int right) {
         final int mid = (left + right) >>> 1;
-        final int pivot = array[mid];
-
-        while (left <= right) {
-            while (array[left] < pivot) { // 직접 비교 연산자 사용
-                ++left;
+        swap(array, left, mid);
+        final int pivot = array[left];
+        int i = left + 1;
+    
+        while (i <= right) {
+            while (i <= right && array[i] < pivot) { 
+                i++;
             }
-            while (array[right] > pivot) { // 직접 비교 연산자 사용
-                --right;
+            while (i <= right && array[right] > pivot) { 
+                right--;
             }
-            if (left <= right) {
-                swap(array, left, right);
-                ++left;
-                --right;
+            if (i < right) {
+                swap(array, i, right);
+                i++;
+                right--;
             }
         }
-        return left;
+    
+        swap(array, left, right); 
+        return right; 
     }
+    
 
     private static void swap(Integer[] array, int i, int j) {
         Integer temp = array[i];
