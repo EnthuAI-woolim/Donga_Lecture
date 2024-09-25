@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;com.example.p1&apos; to &apos;com.web.p1&apos;&#x0D;&#x0A;- Original project: &apos;p1&apos;&#x0D;&#x0A;- Original element: &apos;p1/src/main/java/com.example.p1&apos;&#x0D;&#x0A;- Renamed element: &apos;p1/src/main/java/com.web.p1&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;com.example.p1&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src\/main\/java=/gradle_scope=/main=/=/gradle_used_by_scope=/main,test=/&lt;com.example.p1" name="com.web.p1" qualified="false" references="true" stamp="1727223329556" textual="false" version="1.0"/>
+</session>
