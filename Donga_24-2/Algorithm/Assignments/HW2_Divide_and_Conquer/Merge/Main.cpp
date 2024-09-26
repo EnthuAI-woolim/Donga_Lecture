@@ -1,4 +1,4 @@
-#include "./merge.h"
+#include "./MergeSort.h"
 #include <ctime>
 
 int main() {
@@ -10,9 +10,7 @@ int main() {
 
     int size = numbers.size();
     int *arr = new int[size];
-    for (int i = 0; i < size; ++i) {
-        arr[i] = numbers[i];
-    }
+    for (int i = 0; i < size; ++i) arr[i] = numbers[i];
 
     start = clock();
     mergeSort(arr, 0, size - 1);

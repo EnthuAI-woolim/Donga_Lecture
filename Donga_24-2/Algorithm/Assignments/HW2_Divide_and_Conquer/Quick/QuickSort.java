@@ -9,48 +9,42 @@ public class QuickSort {
         long start = System.nanoTime();
         quickSort(arr, 0, arr.length-1);
         long end = System.nanoTime();
-
         System.out.println("MS : " + (double)(end - start) / 1_000_000);
 
         FileUtil.writeArrayToFile("../output_quick_sort.txt", arr);
     }
 
-    private static void quickSort(Integer[] array, final int left, final int right) {
-        if (left < right) {
-            final int pivot = partition(array, left, right);
-            quickSort(array, left, pivot-1);
-            quickSort(array, pivot+1, right);
+    private static void quickSort(Integer[] arr, final int l, final int r) {
+        if (l < r) {
+            final int pivot = partition(arr, l, r);
+            quickSort(arr, l, pivot-1);
+            quickSort(arr, pivot+1, r);
         }
     }
 
-    private static int partition(Integer[] array, int left, int right) {
-        final int mid = (left + right) >>> 1;
-        swap(array, left, mid);
-        final int pivot = array[left];
-        int i = left + 1;
-    
-        while (i <= right) {
-            while (i <= right && array[i] < pivot) { 
-                i++;
-            }
-            while (i <= right && array[right] > pivot) { 
-                right--;
-            }
-            if (i < right) {
-                swap(array, i, right);
-                i++;
-                right--;
+    private static int partition(Integer[] arr, int first, int r) {
+        final int mid = (first + r) >>> 1;
+        final int pivot = arr[mid];
+        int l = first + 1;
+        
+        swap(arr, first, mid);
+        while (l <= r) {
+            while (l <= r && arr[l] < pivot) l++;
+            while (l <= r && arr[r] > pivot) r--;
+
+            if (l < r) {
+                swap(arr, l, r);
+                l++;
+                r--;
             }
         }
-    
-        swap(array, left, right); 
-        return right; 
+        swap(arr, first, r); 
+        return r; 
     }
     
-
-    private static void swap(Integer[] array, int i, int j) {
-        Integer temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+    private static void swap(Integer[] arr, int i, int j) {
+        Integer temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
     }
 }
