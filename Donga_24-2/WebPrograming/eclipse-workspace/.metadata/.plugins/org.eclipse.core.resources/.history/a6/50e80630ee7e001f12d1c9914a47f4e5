@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body style="background-color:yellow">
+	<form method="post" action="/ex01/answer" >
+		아이디: <input type="text" name="mid"> <p>
+		비밀번호: <input type="text" name="pw"> <p>
+	 	<input type="submit" value="로그인">
+	</form>
+</body>
+</html>
