@@ -1,0 +1,55 @@
+wise.html ==============================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>보내는 쪽</title>
+</head>
+<body style="background-color:yellow">
+	<form method="post" action="/wise/answer" >
+		위인: <input type="text" name="mname"> <p>
+		명언: <input type="text" name="content"> <p>
+	 	<input type="submit" value="입력">
+	</form>
+</body>
+</html>
+
+
+
+wiseAnswer.html ==============================
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>받는 쪽</title>
+	<style>
+		body { background-color: aqua; }
+		table, th, td { border: 1px solid black; }
+	</style>
+</head>
+<body>
+	<h1>오늘의 명언</h1>
+	<table>
+		<tr> <th>위인 <td th:text="${mname}">
+		<tr> <th>명언 <td th:text="${content}">
+	</table>
+</body>
+</html>
+
+
+
+메소드 2개 ==============================
+
+	@GetMapping("/wise")
+	public String wise() {
+		return "wise"; 
+	}
+	
+	@PostMapping("/wise/answer")
+	public String wiseAnswer(@RequestParam(name="mname") String mname, @RequestParam(name="content") String content, Model mo) {
+		mo.addAttribute("mname", mname);
+		mo.addAttribute("content", content);
+		return "wiseAnswer";
+	}

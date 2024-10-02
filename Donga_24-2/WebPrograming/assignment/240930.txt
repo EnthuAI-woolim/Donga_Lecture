@@ -1,0 +1,68 @@
+ex01.html ==============================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body style="background-color:yellow">
+	<form method="post" action="/ex01/answer" >
+		아이디: <input type="text" name="mid"> <p>
+		비밀번호: <input type="password" name="pw"> <p>
+	 	<input type="submit" value="로그인">
+	</form>
+</body>
+</html>
+
+
+
+ex01Answer.html ==============================
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body style="background-color:aqua">
+	나는 <strong th:text="${mid}"></strong>의 비번을 알고 있다. <p>
+	<strong th:text="${pw}"></strong> 맞지? 아하하핳!!!
+</body>
+</html>
+
+
+
+MyController.java ==============================
+
+package com.web.p1;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+@Controller
+public class MyController {
+	
+	
+	@GetMapping("/")	
+	public String home() {	
+		return "home";	
+	}
+	
+	@GetMapping("/ex01")
+	public String ex01() {
+		return "ex01"; 
+	}
+	
+	@PostMapping("/ex01/answer")
+	public String ex01Answer(@RequestParam(name="mid") String mid, @RequestParam(name="pw") String pw, Model mo) {
+		mo.addAttribute("mid", mid);
+		mo.addAttribute("pw", pw);
+		return "ex01Answer";
+	} 
+	
+}

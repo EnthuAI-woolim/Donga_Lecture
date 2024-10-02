@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>받는 쪽</title>
+</head>
+<body style="background-color:aqua">
+	<table>
+		<tr> <th>위인 <td th:text="${mname}">
+		<tr> <th>명언 <td th:text="${content}">
+	</table>
+</body>
+</html>

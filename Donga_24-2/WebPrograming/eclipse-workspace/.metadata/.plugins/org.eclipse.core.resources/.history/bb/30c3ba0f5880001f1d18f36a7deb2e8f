@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body style="background-color:#F5ECCE">
+	<span th:text="${mname}">mname</span> 
+	<span th:text="${po}">po</span>님의 연봉은 <p>
+	<span th:text="${salary}">salary</span> 만원입니다.
+</body>
+</html>
