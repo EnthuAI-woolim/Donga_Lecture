@@ -9,7 +9,7 @@ public class QuickSort {
         long start = System.nanoTime();
         quickSort(arr, 0, arr.length-1);
         long end = System.nanoTime();
-        System.out.println("MS : " + (double)(end - start) / 1_000_000);
+        System.out.printf("running time : %.6fms%n", (double)(end - start) / 1_000_000);
 
         FileUtil.writeArrayToFile("../output_quick_sort.txt", arr);
     }
