@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>받는 쪽</title>
+	<style>
+		body { background-color: pink; }
+	</style>
+</head>
+<body>
+	고객님께서 구매하신 빵은 <br>
+	<strong th:text="${name}"></strong>이며 <br>
+	<strong th:Integer="${num}"></strong>개를 구매하셨으므로 <br>
+	총 가격은 <strong th:Integer="${price*num}"></strong>원입니다.
+</body>
+</html>

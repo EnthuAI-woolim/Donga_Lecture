@@ -14,6 +14,7 @@ public class MyController { // 소스명, 클래스명 대소문자까지 완벽
 	// 여기 코딩할 건데
 	// 이 안에는 메소드들을 코딩합니다. 화면1개에 메소드1개
 	
+	// # 수업코드
 	@GetMapping("/")	// 고객님이 사이트주소만 넣고 더이상 세부주소 안치시면 (홈페이지 첫화면)
 	public String home() {	// 메소드명 자유. 대부분은 화면 이름이나 주소랑 동일하게 하는 경향
 		return "home";	// 화면 내보내는 한 줄. html소스는 templates안에 있어야 함
@@ -63,15 +64,74 @@ public class MyController { // 소스명, 클래스명 대소문자까지 완벽
 		return "ex03Answer";
 	}
 	
-	@GetMapping("/wise")
+	// # 과제
+	@GetMapping("/assignment")
+	public String assignment() {
+		return "assignment";
+	}
+	
+	// ## Ch3
+	// ### quiz 03
+	@GetMapping("/assignment/ch3/wise")
 	public String wise() {
 		return "wise"; 
 	}
 	
-	@PostMapping("/wise/answer")
+	@PostMapping("/assignment/ch3/wise/answer")
 	public String wiseAnswer(@RequestParam(name="mname") String mname, @RequestParam(name="content") String content, Model mo) {
 		mo.addAttribute("mname", mname);
 		mo.addAttribute("content", content);
 		return "wiseAnswer";
 	}
+	
+	// ### quiz 05
+	@GetMapping("/assignment/ch3/bread")
+	public String bread() {
+		return "bread";
+	}
+	
+	@PostMapping("/assignment/ch3/bread/answer")
+	public String breadAnswer(
+			@RequestParam("name") String name,
+			@RequestParam("price") Integer price,
+			@RequestParam("num") Integer num,
+			Model mo
+			) {
+		mo.addAttribute("name", name);
+		mo.addAttribute("price", price);
+		mo.addAttribute("num", num);
+		// 숫자는 int와 Integer 중 Integer권장
+		// Integer는 래퍼클래스라서 객체타입이라 null값을 받을 수 있음
+		return "breadAnswer";
+	}
+	
+	// ### quiz 06
+	@GetMapping("/assignment/ch3/q06")
+	public String ch3_q06() {
+		return "ch3_q06";
+	}
+
+	@GetMapping("/assignment/ch3/q06/a")
+	public String ch3_q06a() {
+		return "ch3_q06a";
+	}
+	
+	@PostMapping("/assignment/ch3/q06/aa")
+	public String ch3_q06aa(@RequestParam("first") String first, @RequestParam("second") String second, Model mo) {
+		mo.addAttribute("first", first);
+		mo.addAttribute("second", second);
+		return "ch3_q06aa";
+	}
+	
+	@GetMapping("/assignment/ch3/q06/b")
+	public String ch3_q06b() {
+		return "ch3_q06b";
+	}
+	
+	@PostMapping("/assignment/ch3/q06/bb")
+	public String ch3_q06bb(@RequestParam("field") String field , Model mo) {
+		mo.addAttribute("field", field);
+		return "ch3_q06bb";
+	}
+	
 }

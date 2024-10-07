@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>보내는 쪽</title>
+</head>
+<body style="background-color:yellow">
+	<form method="post" action="/wise/answer" >
+		1개당 가격: <input type="Integer" name="price"> <p>
+		구입 개수: <input type="text" name="content"> <p>
+	 	<input type="submit" value="입력">
+	</form>
+</body>
+</html>

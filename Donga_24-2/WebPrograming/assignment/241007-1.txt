@@ -1,0 +1,67 @@
+MyContoller.java ================================
+
+	@GetMapping("/bread")
+	public String bread(Model mo) {
+		return "bread";
+	}
+	
+	@PostMapping("/bread/answer")
+	public String breadAnswer(
+			@RequestParam("name") String name,
+			@RequestParam("price") Integer price,
+			@RequestParam("num") Integer num,
+			Model mo) {
+		mo.addAttribute("name", name);
+		mo.addAttribute("price", price);
+		mo.addAttribute("num", num);
+		// 숫자는 int와 Integer 중 Integer권장
+		// Integer는 래퍼클래스라서 객체타입이라 null값을 받을 수 있음
+		return "breadAnswer";
+	}
+
+
+bread.html ================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>보내는 쪽</title>
+</head>
+<body style="background-color:yellow">
+	<form method="post" action="/bread/answer">
+		빵종류: <input type="text" name="name"> <p>
+		1개당 가격: <input type="number" name="price"> <p>
+		구입 개수: <select name="num">
+				 		<option>1
+						<option>2
+						<option>3
+						<option>4
+						<option>5
+						<option>6
+						<option>7
+					</select >개<p>
+		<input type ="submit" value="구매">
+	</form>
+</body>
+</html>
+
+
+breadAnswer.html ================================
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>받는 쪽</title>
+	<style>
+		body { background-color: pink; }
+	</style>
+</head>
+<body>
+	고객님께서 구매하신 빵은 <br>
+	<strong th:text="${name}"></strong>이며 <br>
+	<strong th:text="${num}"></strong>개를 구매하셨으므로 <br>
+	총 가격은 <strong th:text="${price*num}"></strong>원입니다.
+</body>
+</html>

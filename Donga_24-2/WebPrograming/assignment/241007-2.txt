@@ -1,0 +1,126 @@
+MyContoller.java ================================
+
+	@GetMapping("/assignment/ch3/q06")
+	public String ch3_q06() {
+		return "ch3_q06";
+	}
+
+	@GetMapping("/assignment/ch3/q06/a")
+	public String ch3_q06a() {
+		return "ch3_q06a";
+	}
+	
+	@PostMapping("/assignment/ch3/q06/aa")
+	public String ch3_q06aa(@RequestParam("first") String first, @RequestParam("second") String second, Model mo) {
+		mo.addAttribute("first", first);
+		mo.addAttribute("second", second);
+		return "ch3_q06aa";
+	}
+	
+	@GetMapping("/assignment/ch3/q06/b")
+	public String ch3_q06b() {
+		return "ch3_q06b";
+	}
+	
+	@PostMapping("/assignment/ch3/q06/bb")
+	public String ch3_q06bb(@RequestParam("field") String field , Model mo) {
+		mo.addAttribute("field", field);
+		return "ch3_q06bb";
+	}
+
+
+ch3_q06.html ================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>원하는 직종</title>
+<style>
+	li { line-height: 1.5em; }
+</style>
+</head>
+<body>
+	<h2>선택하세요</h2>
+	<ol>
+		<li><a href="/assignment/ch3/q06/a">대기업</a> <p>
+		<li><a href="/assignment/ch3/q06/b">공무원</a>
+	</ol>
+</body>
+</html>
+
+
+ch3_q06a.html ================================
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>기업 선택</title>
+</head>
+<body style="background-color:skyblue">
+	<h2>원하는 기업 두 곳 입력</h2>
+	<form method="post" action="/assignment/ch3/q06/aa" >
+		1 순위: <input type="text" name="first"> <p>
+		2 순위: <input type="text" name="second"> <p>
+	 	<input type="submit" value="확인">
+	</form>
+</body>
+</html>
+
+
+ch3_q06aa.html ================================
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${first + ' & ' + second}"></title>
+	<style>
+		strong { color: blue; }
+	</style>
+</head>
+<body>
+	반갑습니다. 조만간 회사에서 만나요! - <strong th:text="${first}"></strong> 인사팀장 - <p>
+	아니오! 우리 회사로 꼭 오세요!! - <strong th:text="${second}"></strong> 인사팀장 -
+</body>
+</html>
+
+
+ch3_q06b.html ================================
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>분야 선택</title>
+</head>
+<body style="background-color: yellow">
+	<h2>원하는 분야 선택</h2>
+	<form method="post" action="/assignment/ch3/q06/bb" >
+		<select name="field">
+			<option>경찰공무원
+			<option>소방공무원
+			<option>교육공무원
+			<option>구청,동사무서			
+		</select>
+	 	<input type="submit" value="선택">
+	</form>
+</body>
+</html>
+
+
+ch3_q06bb.html ================================
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>환영합니다</title>
+</head>
+<body>
+	축하합니다! <p>
+	<strong th:text="${field}"></strong> 으로 임용되셨습니다!!
+</body>
+</html>
+
