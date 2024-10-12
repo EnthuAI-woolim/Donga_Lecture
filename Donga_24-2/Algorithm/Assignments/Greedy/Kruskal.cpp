@@ -5,7 +5,6 @@
 #include <ctime>
 
 
-
 struct Edge {
     int src, dest, weight;
 };
