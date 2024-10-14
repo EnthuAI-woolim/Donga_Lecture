@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="|${mname}'s color|"></title>
+</head>
+<!-- <body th:style="|background-color: ${color}|"> -->
+<body >
+	<strong th:text="${m}"></strong>님이 좋아하는 색은 <br> 
+	<strong th:text="${c}"></strong>입니다. <br>
+	<strong th:text="${c}" th:style="${'background-color:' + color}"></strong>입니다. <br>
+	<strong th:text="${c}" th:style="${'color:' + color}"></strong>입니다.
+</body>
+</html>
+
+<!-- 
+1. 
+단순히 변수를 넣을려면 아래 방식으로
+<strong th:text="${mname}"></strong>
+
+2-1.
+변수와 하드코딩 같이하려면 아래 방식으로
+<title th:text="|${mname}'s color|"></title>
+
+2-2. 이 방법을 더 선호
+<body th:style="${'background-color:' + color}">
+${}안에는 python방식으로 코드작성해야됨.
+그래서 문자열인 background-color: 에 ''를 묶어줌
+ -->

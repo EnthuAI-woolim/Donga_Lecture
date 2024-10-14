@@ -15,7 +15,7 @@ from sklearn.model_selection import train_test_split
 #
 # x = data_np[:, 1]          # sqft_living
 # y = data_np[:, 0]          # price
-
+#
 # # Dataset 정규화
 # x_mean = np.mean(x)
 # y_mean = np.mean(y)
@@ -41,30 +41,30 @@ from sklearn.model_selection import train_test_split
 # # plt.show()
 #
 # ### Least Square Method
-# # $$\theta = (X^T \cdot X)^{-1} \cdot (X^T \cdot Y)$$
+# # θ = (X^T⋅X)^−1(X^T⋅Y) - 노트 4주차_2차시에 행렬θ 유도 과정 정리해 놓음
 # def LSM(x, y):
 #   # 행렬 X에 bias 열 추가
-#   bias = np.ones_like(x)
-#   X = np.hstack([x, bias])
+#   bias = np.ones_like(x)                  # x 행렬과 똑같은 크기의 1로 채워진 행렬 생성
+#   X = np.hstack([x, bias])                # 행렬 가로 쌓기
 #   # x = np.array([[-3], [-1], [1], [3]])
 #   # y = np.array([[-1], [-1], [3], [3]])
 #
-#   # X transepose 생성
+#   # X transepose 생성 - 전치 행렬
 #   XT = X.T
 #
-#   # X^T * X 생성
+#   # X^T * X 생성 - 행렬 곱
 #   XTX = np.dot(XT, X)
 #
-#   # (X^T * X)^-1 생성
+#   # (X^T * X)^-1 생성 - 역 행렬
 #   XTX_inverse = np.linalg.inv(XTX)
 #
-#   # X^T * Y 생성
+#   # X^T * Y 생성 - 행렬 곱
 #   XTY = np.dot(XT, y)
 #
-#   # theta 계산
+#   # theta 계산 - 행렬 곱
 #   theta = np.dot(XTX_inverse, XTY)
 #
-#   return theta[0], theta[1]
+#   return theta[0], theta[1]       # theta[0]: weight, theta[1]: bias
 #
 # w, b = LSM(x_train, y_train)
 # # print(w, b)
@@ -98,14 +98,13 @@ from sklearn.model_selection import train_test_split
 #   for i in range(n_iters):
 #     # [[w],
 #     #  [b]] 행렬 생성
-#
 #     theta = np.array([w, b])
 #     theta = theta.reshape(2, 1)
 #
 #     # y_hat 계산
 #     y_hat = np.dot(X, theta)
 #
-#     # dw, db 계산
+#     # dw, db 계산 - w, b에 대해 각각 편미분한 값 계산
 #     dw = 2/x.shape[0] * sum((y - y_hat) * -x)
 #     db = 2/x.shape[0] * sum((y - y_hat) * -1)
 #

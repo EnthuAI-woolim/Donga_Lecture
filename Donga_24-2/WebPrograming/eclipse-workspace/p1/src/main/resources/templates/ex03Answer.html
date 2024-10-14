@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title th:text="|${mname}'s color|"></title>
+<title th:text="|${m}'s color|"></title>
 </head>
 <!-- <body th:style="|background-color: ${color}|"> -->
 <body >
-	<strong th:text="${mname}">mname</strong>님이 좋아하는 색은 <br> 
-	<strong th:text="${color}">color</strong>입니다. <br>
-	<strong th:text="${color}" th:style="${'background-color:' + color}">color</strong>입니다. <br>
-	<strong th:text="${color}" th:style="${'color:' + color}">color</strong>입니다.
+	<strong th:text="${m}"></strong>님이 좋아하는 색은 <br> 
+	<strong th:text="${c}"></strong>입니다. <br>
+	<strong th:text="${c}" th:style="${'background-color:' + c}"></strong>입니다. <br>
+	<strong th:text="${c}" th:style="${'color:' + c}"></strong>입니다.
 </body>
 </html>
 

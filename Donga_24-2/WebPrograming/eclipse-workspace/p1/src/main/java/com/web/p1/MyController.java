@@ -1,5 +1,7 @@
 package com.web.p1;
 
+import java.util.ArrayList;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +27,7 @@ public class MyController { // 소스명, 클래스명 대소문자까지 완벽
 		return "ex01"; 
 	}
 	
-	@PostMapping("/ex01/answer")
+	@PostMapping("/ex01result")
 	public String ex01Answer(@RequestParam(name="mid") String mid, @RequestParam(name="pw") String pw, Model mo) {
 		mo.addAttribute("mid", mid);
 		mo.addAttribute("pw", pw);
@@ -37,7 +39,7 @@ public class MyController { // 소스명, 클래스명 대소문자까지 완벽
 		return "ex02";
 	}
 	
-	@PostMapping("/ex02/answer")
+	@GetMapping("/ex02/answer")
 	public String ex02Answer(@RequestParam("mname") String mname, @RequestParam("po") String po, Model mo) {
 		mo.addAttribute("mname", mname);
 		mo.addAttribute("po", po);
@@ -58,11 +60,30 @@ public class MyController { // 소스명, 클래스명 대소문자까지 완벽
 	}
 	
 	@PostMapping("/ex03/answer")
-	public String ex03Answer(@RequestParam("mname") String mname, @RequestParam("color") String color, Model mo) {
-		mo.addAttribute("mname", mname);
-		mo.addAttribute("color", color);
+	public String ex03Answer(@RequestParam("mname") String m, @RequestParam("color") String c, Model mo) {
+		mo.addAttribute("m", m);
+		mo.addAttribute("c", c);
 		return "ex03Answer";
 	}
+	
+	@GetMapping("/ex04")
+	public String ex04(Model mo) {
+		// var: 자동 타입 설정
+		var arr = new ArrayList<String>();
+		arr.add("고흐"); 
+		arr.add("james");
+		arr.add("dooli");
+		arr.add("bread"); 
+		/* 지금은 회원정보 하드코딩. 나중에는 database에서 가져옴 */
+		mo.addAttribute("arr", arr);
+		return "ex04";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+
 	
 	// # 과제
 	@GetMapping("/assignment")

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+body {
+	background-color:#ECE0F8;
+}
+
+table {
+	width:200px; 
+	border:5px dashed lime; 
+}
+#firstRow {background-color:lightcyan; }
+
+td {
+	color:blue; 
+	text-align:center;
+}

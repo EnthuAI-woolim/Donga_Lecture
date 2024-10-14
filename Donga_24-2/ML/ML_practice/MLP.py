@@ -83,9 +83,9 @@ from torch.utils.data import DataLoader
 #
 #     avg_cost += loss / total_batch      # 모든 배치에 대한 평균 loss값 계산
 #
-#   # print('Epoch: %d Loss = %f'%(epoch+1, avg_cost))
+#   print('Epoch: %d Loss = %f'%(epoch+1, avg_cost))
 #
-# # print('Learning finished')
+# print('Learning finished')
 #
 # ### 학습이 완료된 모델을 이용해 정답률 확인
 # network = network.to('cpu')
@@ -99,7 +99,24 @@ from torch.utils.data import DataLoader
 #   # 예측 값이 가장 높은 숫자(0~9)와 정답데이터가 일치한 지 확인
 #   correct_prediction = torch.argmax(prediction, 1) == label_test
 #   accuracy = correct_prediction.float().mean()
-#   # print('Accuracy:', accuracy.item())
+#   print('Accuracy:', accuracy.item())
+#
+#   # ppt보고 다시해보기 - mnist_test.data[0] 때문에
+#   # prediction_num = torch.argmax(prediction, 1)
+#   # print(prediction)
+#   # print(prediction_num)
+#   # plt.imshow(mnist_test.data[0], cmap="gray")
+#   # plt.show()
 #
 # ### Weight parameter 저장하기/불러오기
 # # torch.save(network.state_dict(), "./mlp_mnist.pth")
+#
+# ### 저장된 파라미터 로드
+# network.load_state_dict(torch.load("./slp_mnist.pth"))
+#
+# ### 파라미터 출력
+# for name, param in network.named_parameters():
+#     print(f"Parameter name: {name}")
+#     print(f"Parameter value: {param.data}")
+#     print(f"Gradient: {param.grad}")
+#     print()  # 줄 바꿈
