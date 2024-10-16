@@ -60,8 +60,8 @@ public class MyController { // 소스명, 클래스명 대소문자까지 완벽
 	}
 	
 	@PostMapping("/ex03/answer")
-	public String ex03Answer(@RequestParam("mname") String m, @RequestParam("color") String c, Model mo) {
-		mo.addAttribute("m", m);
+	public String ex03Answer(@RequestParam("mname") String n, @RequestParam("color") String c, Model mo) {
+		mo.addAttribute("n", n);
 		mo.addAttribute("c", c);
 		return "ex03Answer";
 	}
