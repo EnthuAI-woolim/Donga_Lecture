@@ -20,7 +20,7 @@ public class MyController { // 소스명, 클래스명 대소문자까지 완벽
 	@GetMapping("/")	// 고객님이 사이트주소만 넣고 더이상 세부주소 안치시면 (홈페이지 첫화면)
 	public String home() {	// 메소드명 자유. 대부분은 화면 이름이나 주소랑 동일하게 하는 경향
 		return "home";	// 화면 내보내는 한 줄. html소스는 templates안에 있어야 함
-	}
+	}					// thymeleaf가 templates 폴더에서 확장자가 html인 home을 선택
 	
 	@GetMapping("/ex01")
 	public String ex01() {
