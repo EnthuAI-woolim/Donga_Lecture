@@ -24,7 +24,7 @@ public:
     // 입력 노드의 root 노드를 찾음
     int find(int u) {
         if (parent[u] != u)     // 초기 세팅 값이 아니면(자기자신) 즉, 한 번 수정되었다면
-            parent[u] = find(parent[u]);    // 재귀함수를 통해 자신의 root 노드를 찾음
+            parent[u] = find(parent[u]);    // find재귀함수를 통해 타고 올라가서 자신의 root 노드를 찾아서 부모노드를 설정함
         return parent[u];
     }
 
@@ -32,9 +32,10 @@ public:
         int rootU = find(u);
         int rootV = find(v);
 
+        // 만약 서로 다른 트리라면
         if (rootU != rootV) {
             if (rank[rootU] > rank[rootV]) {    // rank가 더 높은 트리에 더 낮은 트리를 붙임
-                parent[rootV] = rootU;
+                parent[rootV] = rootU; // 부모노드 업데이트해줌
             } else if (rank[rootU] < rank[rootV]) {
                 parent[rootU] = rootV;
             } else {    // rank가 같다면 노드의 부여번호(0~5)가 더 낮은 트리아래에 다른 트리 붙임
@@ -50,12 +51,10 @@ private:
 };
 
 std::vector<Edge> kruskal(std::vector<Edge>& edges, int numVertices) {
-    // 가중치를 기준으로 오름차순
-    std::sort(edges.begin(), edges.end(), [](Edge a, Edge b) {
-        return a.weight < b.weight;
-    });
-
+    // 트리과정을 담을 ds초기화(parent, rank)
     DisjointSet ds(numVertices); 
+
+    // 최종 트리가 저장될 mst 초기화
     std::vector<Edge> mst;
 
     for (const Edge& edge : edges) {
@@ -63,8 +62,11 @@ std::vector<Edge> kruskal(std::vector<Edge>& edges, int numVertices) {
         int v = edge.dest;
 
         // 두 노드의 root 노드가 서로 다르다면 추가(사이클이 안된다는 의미)
-        if (ds.find(u) != ds.find(v)) {
+        if (ds.find(u) != ds.find(v)) { // find()를 호출하면서, 자기 부모노드 업데이트
+            // 위 조건이 만족했다는건 사이클이 안된다는 거니까,  mst에 간선 추가
             mst.push_back(edge);
+
+            // rank를 통해 각 노드의 트리 확인 및 합체
             ds.unionSets(u, v);
         }
     }
@@ -90,11 +92,18 @@ void inputEdges(std::vector<Edge>& edges) {
 
         std::istringstream iss(input);
         if (iss >> src && iss.ignore() && iss >> dest && iss.ignore() && iss >> weight) {
+            if (src > dest) std::swap(src, dest);
             edges.push_back({src, dest, weight});
         } else {
             std::cout << "Invalid input. Please enter in the correct format.\n";
         }
     }
+
+    // 가중치를 기준으로 오름차순 정렬, 가중치가 같을 경우 src 기준으로 정렬
+    std::sort(edges.begin(), edges.end(), [](Edge a, Edge b) {
+        if (a.weight != b.weight) return a.weight < b.weight;  // 가중치 기준 오름차순
+        return a.src < b.src;  // 가중치가 같을 경우 src 기준 오름차순
+    });
 }
 
 

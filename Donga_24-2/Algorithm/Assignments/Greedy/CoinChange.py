@@ -10,7 +10,7 @@ def coin_change(units, value):
 if __name__ == "__main__":
     units = [500, 100, 50, 10]
 
-    value = int(input("바꿀 액수 입력: ").strip())    
+    value = int(input("Total value: ").strip())    
     if value == 0 or value < 0: 
         print("The total value cannot be zero or negative.")
     else:
