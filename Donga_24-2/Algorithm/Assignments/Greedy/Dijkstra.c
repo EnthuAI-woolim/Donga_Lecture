@@ -1,216 +1,97 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
+#include <time.h>
 
-#define MAX 20
-#define INF 999
+#define INT_MAX 2147483647
+#define TRUE 1
+#define FALSE 0
+#define MAX_VERTICES 10
+#define INF INT_MAX
 
-int mat[MAX][MAX];
-int V;
+char *cities[] = {
+    "서울", "천안", "원주", "강릉", "논산",
+    "대전", "대구", "포항", "광주", "부산"
+};
 
-int dist[MAX];
+// 서울 0, 천안 1, 원주 2, 강릉 3, 논산 4, 대전 5, 대구 6, 포항 7, 광주 8, 부산 9
+int weight[MAX_VERTICES][MAX_VERTICES] = {
+    {0, 12, 15, INF, INF, INF, INF, INF, INF, INF},
+    {12, 0, INF, INF, 4, 10, INF, INF, INF, INF},
+    {15, INF, 0, 21, INF, INF, 7, INF, INF, INF},
+    {INF, INF, 21, 0, INF, INF, INF, 25, INF, INF},
+    {INF, 4, INF, INF, 0, 3, INF, INF, 13, INF},
+    {INF, 10, INF, INF, 3, 0, 10, INF, INF, INF},
+    {INF, INF, 7, INF, INF, 10, 0, 19, INF, 9},
+    {INF, INF, INF, 25, INF, INF, 19, 0, INF, 5},
+    {INF, INF, INF, INF, 13, INF, INF, INF, 0, 15},
+    {INF, INF, INF, INF, INF, INF, 9, 5, 15, 0}       
+};
 
-int q[MAX];
-int qp = 0;
+int dis[MAX_VERTICES][MAX_VERTICES];
+int visited[MAX_VERTICES];
 
-void enqueue(int v) { q[qp++] = v; }
+int update(int dis[], int n, int visited[]) {
+    int min = INT_MAX;
+    int min_pos = -1;
 
-int cf(const void *a, const void *b)
-{
-    int *x = (int *)a;
-    int *y = (int *)b;
-    return *y - *x;
-}
-
-int dequeue()
-{
-    qsort(q, qp, sizeof(int), cf);
-    return q[--qp];
-}
-
-int queue_has_something() { return (qp > 0); }
-
-int visited[MAX];
-int vp = 0;
-
-void dijkstra(int s)
-{
-    dist[s] = 0;
-    int i;
-    for (i = 0; i < V; ++i)
-    {
-        if (i != s)
-        {
-            dist[i] = INF;
+    for (int i = 0; i < n; i++) {
+        if (dis[i] < min && visited[i] == FALSE) {
+            min = dis[i];
+            min_pos = i;
         }
-        enqueue(i);
     }
-    while (queue_has_something())
-    {
-        int u = dequeue();
-        visited[vp++] = u;
-        for (i = 0; i < V; ++i)
-        {
-            if (mat[u][i])
-            {
-                if (dist[i] > dist[u] + mat[u][i])
-                {
-                    dist[i] = dist[u] + mat[u][i];
+
+    return min_pos;
+}
+
+void Shortest_Path_Dijkstra(int s, int n) {
+    for (int i = 0; i < n; i++) {
+        visited[i] = FALSE;
+        dis[s][i] = INF;
+    }
+
+    dis[s][s] = 0;
+
+    for (int i = 0; i < n - 1; i++) {
+        int u = update(dis[s], n, visited);
+        visited[u] = TRUE;
+
+        for (int j = 0; j < n; j++) {
+            if (visited[j] == FALSE && weight[u][j] != INF) {
+                if (dis[s][u] + weight[u][j] < dis[s][j]) {
+                    dis[s][j] = dis[s][u] + weight[u][j]; 
                 }
             }
         }
     }
 }
 
-int main(int argc, char const *argv[])
-{
-    printf("Enter the number of vertices: ");
-    scanf(" %d", &V);
-    printf("Enter the adj matrix: ");
-    int i, j;
-    for (i = 0; i < V; ++i)
-    {
-        for (j = 0; j < V; ++j)
-        {
-            scanf(" %d", &mat[i][j]);
+int main(void) {
+    clock_t start, end;
+
+    start = clock();
+    for (int start = 0; start < MAX_VERTICES; start++) {
+        Shortest_Path_Dijkstra(start, MAX_VERTICES);
+    }
+    end = clock();
+
+    // 결과 출력
+    printf("최단 거리\n");
+    printf("      ");
+    for (int i = 0; i < MAX_VERTICES; i++) 
+        printf("%4s ", cities[i]);
+    
+    printf("\n");
+    for (int i = 0; i < MAX_VERTICES; i++) {
+        printf("%4s ", cities[i]);
+        for (int j = 0; j < MAX_VERTICES; j++) {
+            if (j > i) printf("%4d ", dis[i][j]);
+            else printf("     ");
         }
+        printf("\n");
     }
-
-    dijkstra(0);
-
-    printf("\nNode\tDist\n");
-    for (i = 0; i < V; ++i)
-    {
-        printf("%d\t%d\n", i, dist[i]);
-    }
+    printf("Running Time: %lf ms\n", (double)(end - start) / CLOCKS_PER_SEC * 1000.0);
 
     return 0;
 }
-
-// // 서울, 천안, 논산, 광주, 대전, 원주, 대구, 강릉, 부산, 포항
-
-// 0, 12, 0, 0, 0, 15, 0, 0, 0, 0
-// 12, 0, 4, 0, 10, 0, 0, 0, 0, 0
-// 0, 4, 0, 13, 3, 0, 0, 0, 0, 0
-// 0, 0, 13, 0, 0, 0, 0, 0, 15, 0
-// 0, 10, 3, 0, 0, 0, 10, 0, 0, 0
-// 15, 0, 0, 0, 0, 0, 7, 21, 0, 0
-// 0, 0, 0, 0, 10, 7, 0, 0, 9, 19
-// 0, 0, 0, 0, 0, 21, 0, 0, 0, 25
-// 0, 0, 0, 15, 0, 0, 9, 0, 0, 5
-// 0, 0, 0, 0, 0, 0, 19, 25, 5, 0
-
-
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <limits.h>
-
-// #define MAX_VERTICES 100  // 최대 정점 수 정의
-
-// typedef struct {
-//     int vertex;
-//     double distance;
-//     int previousVertex;
-// } DistanceModel;
-
-// typedef struct {
-//     int numVertices;
-//     double adjMatrix[MAX_VERTICES][MAX_VERTICES];
-// } DirectedWeightedGraph;
-
-// // 그래프 초기화 함수
-// void initializeGraph(DirectedWeightedGraph* graph, int vertices) {
-//     graph->numVertices = vertices;
-//     for (int i = 0; i < vertices; i++) {
-//         for (int j = 0; j < vertices; j++) {
-//             graph->adjMatrix[i][j] = (i == j) ? 0 : __DBL_MAX__;
-//         }
-//     }
-// }
-
-// // 간선 추가 함수
-// void addEdge(DirectedWeightedGraph* graph, int src, int dest, double weight) {
-//     graph->adjMatrix[src][dest] = weight;
-// }
-
-// // 최소 미방문 인접 정점을 찾는 함수
-// int getMinimalUnvisitedAdjacentVertex(DirectedWeightedGraph* graph, int* visited, DistanceModel* distArray, int numVertices) {
-//     double minDistance = __DBL_MAX__;
-//     int minVertex = -1;
-
-//     for (int i = 0; i < numVertices; i++) {
-//         if (!visited[i] && distArray[i].distance < minDistance) {
-//             minDistance = distArray[i].distance;
-//             minVertex = i;
-//         }
-//     }
-//     return minVertex;
-// }
-
-// // Dijkstra 알고리즘
-// void dijkstra(DirectedWeightedGraph* graph, int startVertex, DistanceModel* distArray) {
-//     int numVertices = graph->numVertices;
-//     int visited[MAX_VERTICES] = {0};  // 방문한 정점 기록
-
-//     // 거리 배열 초기화
-//     for (int i = 0; i < numVertices; i++) {
-//         distArray[i].vertex = i;
-//         distArray[i].distance = __DBL_MAX__;
-//         distArray[i].previousVertex = -1;
-//     }
-//     distArray[startVertex].distance = 0;
-
-//     int currentVertex = startVertex;
-
-//     for (int i = 0; i < numVertices - 1; i++) {
-//         visited[currentVertex] = 1;
-
-//         // 인접 정점의 거리 업데이트
-//         for (int j = 0; j < numVertices; j++) {
-//             double adjDistance = graph->adjMatrix[currentVertex][j];
-//             if (!visited[j] && adjDistance != __DBL_MAX__ && 
-//                 distArray[currentVertex].distance + adjDistance < distArray[j].distance) {
-//                 distArray[j].distance = distArray[currentVertex].distance + adjDistance;
-//                 distArray[j].previousVertex = currentVertex;
-//             }
-//         }
-
-//         // 다음 최소 거리의 정점을 찾음
-//         currentVertex = getMinimalUnvisitedAdjacentVertex(graph, visited, distArray, numVertices);
-//         if (currentVertex == -1) break;
-//     }
-// }
-
-// // 결과 출력 함수
-// void printShortestPaths(DistanceModel* distArray, int numVertices, int startVertex) {
-//     printf("Shortest paths from vertex %d:\n", startVertex);
-//     for (int i = 0; i < numVertices; i++) {
-//         printf("To vertex %d: Distance = %.2lf, Previous vertex = %d\n", 
-//                i, distArray[i].distance, distArray[i].previousVertex);
-//     }
-// }
-
-// int main() {
-//     DirectedWeightedGraph graph;
-//     int numVertices = 5;
-
-//     initializeGraph(&graph, numVertices);
-
-//     addEdge(&graph, 0, 1, 10);
-//     addEdge(&graph, 0, 3, 5);
-//     addEdge(&graph, 1, 2, 1);
-//     addEdge(&graph, 1, 3, 2);
-//     addEdge(&graph, 2, 4, 4);
-//     addEdge(&graph, 3, 1, 3);
-//     addEdge(&graph, 3, 2, 9);
-//     addEdge(&graph, 3, 4, 2);
-//     addEdge(&graph, 4, 2, 6);
-
-//     DistanceModel distArray[MAX_VERTICES];
-//     int startVertex = 0;
-
-//     dijkstra(&graph, startVertex, distArray);
-
-//     printShortestPaths(distArray, numVertices, startVertex);
-
-//     return 0;
-// }

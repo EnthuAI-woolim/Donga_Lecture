@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link rel="stylesheet" href="/style1.css">
+<style> 
+	body {background:#F8ECE0; text-align: center;}
+	h1 {color:brown;} 
+</style>
+
+</head>
+<body>
+
+<div id="loginInfo" th:text="${loginInfo}"></div>
+<h1>Campus ShoppingMall</h1>
+(bread, coffee, salad)<p>
+<form method="get" action="/login/check"> 
+	 <label for="mid">ID:</label> 
+	 	<input type="text" name="mid" id="mid"> 
+	 <label for="pw">PW:</label>
+	 	<input type="text" name="pw" id="pw">
+	 <button type="submit">로그인</button>
+</form><p>
+<img src="/image.png" alt="야경"><br>
+<span class="s2">(그림 출처: 나무위키)</span>
+
+
+</body>
+</html>
+
+<!-- 
+
+label for한 태그의 글자를 누르면, 해당 input박스가 눌러짐(서비스 차원)
+
+ -->

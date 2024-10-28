@@ -1,0 +1,36 @@
+#loginInfo { 
+	float: right; 
+	border:1px solid gray; /* 우측 작은 회색라인 네모 */
+	width: 100px; 
+	height:20px; 
+	padding: 5px;
+	color:gray; 
+	font-size:0.8em;
+} 
+
+label { color: RGB(100, 100, 100); } /* 블랙에 가까운 회색 */
+
+input { 
+	width: 90px; 
+	margin:10px 10px 10px 0px; 
+} /* top부터 시계방향 */ 
+
+button { padding: 5px 20px 5px 20px; } 
+
+img { 
+	max-width: 320px; /* 그림 원본 비율 살림 */ 
+	max-height: 320px; 
+}
+
+#s1 { color: blue; } /* id는 파란색으로 */
+
+.s2 { 
+	color: gray; /* 그림 출처 등의 부가설명은 회색 작은 글씨 */
+	font-size: 0.8em; 
+} /* 한 화면에 부가설명 여러 개일 수도 있으니 s2는 클래스로 */
+ 
+hr { border: 2px solid darkgray; } /* menu화면에 가로줄 */
+
+li { line-height: 1.5em; }
+
+li::marker { color: red; }

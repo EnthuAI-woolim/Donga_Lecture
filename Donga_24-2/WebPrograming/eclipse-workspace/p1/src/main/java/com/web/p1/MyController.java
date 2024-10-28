@@ -78,11 +78,6 @@ public class MyController { // 소스명, 클래스명 대소문자까지 완벽
 		mo.addAttribute("arr", arr);
 		return "ex04";
 	}
-	
-	@GetMapping("/login")
-	public String login() {
-		return "login";
-	}
 
 	
 	// # 과제

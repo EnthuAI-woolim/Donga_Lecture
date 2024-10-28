@@ -18,7 +18,7 @@
 		<item key="height" value="400"/>
 	</section>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
-		<item key="renameSubpackages" value="false"/>
+		<item key="renameSubpackages" value="true"/>
 		<item key="updateTextualMatches" value="false"/>
 		<item key="updateQualifiedNames" value="false"/>
 		<item key="patterns" value="*"/>
@@ -27,8 +27,8 @@
 		<item key="pageIndex" value="3"/>
 	</section>
 	<section name="NewClassCreationWizard.dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="888"/>
-		<item key="DIALOG_Y_ORIGIN" value="161"/>
+		<item key="DIALOG_X_ORIGIN" value="941"/>
+		<item key="DIALOG_Y_ORIGIN" value="425"/>
 		<item key="DIALOG_WIDTH" value="806"/>
 		<item key="DIALOG_HEIGHT" value="921"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-18|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
