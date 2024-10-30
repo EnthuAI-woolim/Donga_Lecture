@@ -3,13 +3,15 @@
 #include <math.h>
 #include <time.h>
 
-#define INT_MAX 2147483647
 #define TRUE 1
 #define FALSE 0
 #define MAX_VERTICES 10
-#define INF INT_MAX
+#define INF 2147483647
 
-char *cities[] = {
+int dis[MAX_VERTICES][MAX_VERTICES];
+int visited[MAX_VERTICES];
+
+const char* cities[] = {
     "서울", "천안", "원주", "강릉", "논산",
     "대전", "대구", "포항", "광주", "부산"
 };
@@ -28,11 +30,10 @@ int weight[MAX_VERTICES][MAX_VERTICES] = {
     {INF, INF, INF, INF, INF, INF, 9, 5, 15, 0}       
 };
 
-int dis[MAX_VERTICES][MAX_VERTICES];
-int visited[MAX_VERTICES];
+
 
 int update(int dis[], int n, int visited[]) {
-    int min = INT_MAX;
+    int min = INF;
     int min_pos = -1;
 
     for (int i = 0; i < n; i++) {
@@ -71,13 +72,14 @@ int main(void) {
     clock_t start, end;
 
     start = clock();
-    for (int start = 0; start < MAX_VERTICES; start++) {
+    
+    for (int start = 0; start < MAX_VERTICES; start++) 
         Shortest_Path_Dijkstra(start, MAX_VERTICES);
-    }
+    
     end = clock();
 
     // 결과 출력
-    printf("최단 거리\n");
+    printf("\nDijkstra Shortest Path\n");
     printf("      ");
     for (int i = 0; i < MAX_VERTICES; i++) 
         printf("%4s ", cities[i]);
@@ -91,7 +93,7 @@ int main(void) {
         }
         printf("\n");
     }
-    printf("Running Time: %lf ms\n", (double)(end - start) / CLOCKS_PER_SEC * 1000.0);
+    printf("\nRunning Time: %lf ms\n\n", (double)(end - start) / CLOCKS_PER_SEC * 1000.0);
 
     return 0;
 }

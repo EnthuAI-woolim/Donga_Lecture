@@ -16,6 +16,6 @@ if __name__ == "__main__":
     else:
         print(f"- {value} Won -")
         result = coin_change(units, value)
-        # Print result
+
         for i in range(len(units)):
             print(f"{units[i]:>3} won: {result[i]}")

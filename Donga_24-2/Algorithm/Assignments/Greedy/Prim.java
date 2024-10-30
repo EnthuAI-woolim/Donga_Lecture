@@ -90,10 +90,17 @@ public class Prim {
 
         // Prim 알고리즘을 이용해 MST를 구하고 결과 출력
         int startNode = 2; // 시작 노드를 2로 설정
+
+        long start = System.nanoTime();
+
         List<Edge> mst = prim.primMST(startNode);
-        System.out.println("Minimum Spanning Tree:");
+
+        long end = System.nanoTime();
+
+        System.out.println("\nMinimum Spanning Tree:");
         for (Edge edge : mst) {
             System.out.printf("(%d, %d, %d)\n", edge.s, edge.d, edge.w);
         }
+        System.out.printf("\nrunning time : %.6fms%n\n", (double)(end - start) / 1_000_000);
     }
 }

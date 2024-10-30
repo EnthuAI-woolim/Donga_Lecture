@@ -1,1 +1,0 @@
-cd /mnt/w/Donga/Donga_Lecture/Donga_24-2/Algorithm/Assignments/Greedy
