@@ -1,0 +1,23 @@
+[공지]과제 1 채점방법
+
+과제1은 이하 방법을 사용하여 기계적으로 채점할 예정입니다.
+
+아래 방법에서 0점 루트로 빠지지 않도록 컴파일 방법, 출력 방식을 결정하면 됩니다.
+
+Python Version을 적어주세요.
+
+
+==============> 채점 방법
+-  replacement_학번.py와 새로 만든 테스트용 replacement_input.txt을 같은 폴더에 넣고 replacement_학번.py 실행.
+=> replacement_output.txt이 생성되었다. => 3으로
+=> replacement_output.txt이 생성되지 않았다 =>프로그램 정확성 점수 0 점.
+
+- 3. replacement_input.txt, replacement_output.txt, replacement_selection_tester.exe을 같은 폴더에 넣고,
+replacement_selection_tester.exe 을 실행하여 replacement_output.txt의 내용을 평가.
+=> 모든 Test Case를 Pass => 프로그램 정확성 점수 만점.
+=> 중간에 멈춘다. 혹은 Errror 출력 => Error 출력하기 전까지 Pass한 Test Case의 수에 비례하여 프로그램 정확성 점수 부분점수.
+
+PS1. replacement_selection_tester.exe는 설명자료에 적혀있는 파일 이름 및 형식을 정확하게 지키지 않을 경우 동작하지 않으니(= 0점) 정확하게 지키도록 합시다.
+
+PS2. replacement_selection_tester.exe는 최신버전이 강의자료실에 올라와 있습니다. 이를 사용하여 본인의 프로그램을 충분히 테스트 한후 과제를 제출해 주세요.
+
