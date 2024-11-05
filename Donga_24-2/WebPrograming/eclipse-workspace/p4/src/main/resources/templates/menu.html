@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"> <title>MENU</title>
+<link rel="stylesheet" href="/style.css">
+	<style> 
+	 body {padding: 0px 40px 0px 40px; 
+	 background:lightgray; }
+	</style>
+</head>
+<body>
+	<h2>MENU</h2><hr>
+	<span id="s1" th:text="${mid}">mid</span>님,
+	오늘도 즐겁게 쇼핑하세요! <br><hr>
+	<ul>
+		<li>bread
+		<li><a href="/coffee">coffee</a>
+		<li>salad
+		<li><a href="/logout">logout</a>
+	</ul>
+</body>
+</html>

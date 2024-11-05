@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8">
+<title>안내글</title></head> 
+<body> 
+
+<script th:inline="javascript"> // JS에서 thtmeleaf변수 사용하겠다는 코드
+	alert([[${msg}]]); // JS에서 thymeleaf변수 사용방법
+	location.href="/login";
+</script>
+
+<!-- <script th:inline="javacript">
+	/*<! [CDATA[*/
+		let msg = /*[[${msg}]]*/ 'default';
+		alert(msg);
+		location.href="/login";
+	/*]]>*/
+</script> -->
+	
+</body>
+</html>
+
+<!-- 
+
+script에서 thymeleaf를 사용할때는
+<html xmlns:th="http://www.thymeleaf.org"> -> 이거 꼭 정의해야된다!
+
+ -->
