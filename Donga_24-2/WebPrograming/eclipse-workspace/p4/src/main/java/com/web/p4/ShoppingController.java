@@ -44,6 +44,13 @@ public class ShoppingController {
 		} 
 	}
 	
+	@GetMapping("/logout")
+	public String logout(HttpSession se, Model mo) {
+		mo.addAttribute("mid", se.getAttribute("mid"));
+		se.invalidate(); 
+		return "logout";
+	}
+	
 	@GetMapping("/menu")
 	public String menu(HttpSession se, Model mo) {
 		mo.addAttribute("mid", se.getAttribute("mid"));
@@ -62,5 +69,6 @@ public class ShoppingController {
 		mo.addAttribute("mid", se.getAttribute("mid"));
 		return "coffee";
 	}
+	
 
 }
