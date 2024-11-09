@@ -84,6 +84,7 @@ int main() {
     for (int i = 0; i < n+1; ++i) std::cout << d[i] << " ";
     std::cout << std::endl << std::endl;
 
+    std::cout << "Minimum multiplications : " << C[1][n] << std::endl;
     std::cout << std::setw(5) << "C";
     for (int i = 1; i <= n; ++i) std::cout << std::setw(5) << i;
     std::cout << std::endl;
