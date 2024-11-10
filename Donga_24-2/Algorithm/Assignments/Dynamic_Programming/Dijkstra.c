@@ -1,12 +1,13 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 #include <time.h>
-
-#define N 10
-#define INF 10000
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 #define TRUE 1
 #define FALSE 0
+#define N 10
+#define INF 2147483647
+
 int dis[N][N];
 int visited[N];
 
@@ -16,7 +17,7 @@ const char* cities[] = {
 };
 
 // 서울 0, 천안 1, 원주 2, 강릉 3, 논산 4, 대전 5, 대구 6, 포항 7, 광주 8, 부산 9
-int D[N][N] = {
+int weight[N][N] = {
     {0, 12, 15, INF, INF, INF, INF, INF, INF, INF},
     {12, 0, INF, INF, 4, 10, INF, INF, INF, INF},
     {15, INF, 0, 21, INF, INF, 7, INF, INF, INF},
@@ -30,7 +31,20 @@ int D[N][N] = {
 };
 
 
-void dijkstra(int s, int n) {
+int update(int dis[], int n, int visited[]) {
+    int min = INF, min_pos;
+    
+    for (int i = 0; i < n; i++) {
+        if (dis[i] < min && visited[i] == FALSE) {
+            min = dis[i];
+            min_pos = i;
+        }
+    }
+
+    return min_pos;
+}
+
+void Shortest_Path_Dijkstra(int s, int n) {
     for (int i = 0; i < n; i++) {
         visited[i] = FALSE;
         dis[s][i] = INF;
@@ -38,20 +52,12 @@ void dijkstra(int s, int n) {
     dis[s][s] = 0;
 
     for (int i = 0; i < n - 1; i++) {
-        int min = INF, u;
-
-        for (int j = 0; j < n; j++) {
-            if (dis[s][j] < min && visited[j] == FALSE) {
-                min = dis[s][j];
-                u = j;
-            }
-        }
-        
+        int u = update(dis[s], n, visited);
         visited[u] = TRUE;
 
         for (int j = 0; j < n; j++) 
-            if (visited[j] == FALSE && D[u][j] != INF && dis[s][u] + D[u][j] < dis[s][j]) 
-                dis[s][j] = dis[s][u] + D[u][j]; 
+            if (visited[j] == FALSE && weight[u][j] != INF && dis[s][u] + weight[u][j] < dis[s][j]) 
+                dis[s][j] = dis[s][u] + weight[u][j]; 
     }
 }
 
@@ -72,36 +78,20 @@ void printGraph(int D[N][N], const char* cities[]) {
 }
 
 
-int main() {
-    clock_t start1, end1, start2, end2;
+int main(void) {
+    clock_t start, end;
 
-    // Dijkstra - 새로운 dis[][]에 가중치 저장
-    start1 = clock();
+    start = clock();
+    
     for (int start = 0; start < N; start++) 
-        dijkstra(start, N);
-    end1 = clock();
+        Shortest_Path_Dijkstra(start, N);
+    
+    end = clock();
 
-    // Floyd - 기존 D[][]에 가중치 업데이트
-    start2 = clock();
-    for (int k = 0; k < N; ++k) { // 경유 노드 선택
-        for (int i = 0; i < N; ++i) { // 시작 노드 선택
-            if (i == k) continue;
-            for (int j = 0; j < N; ++j) { // 도착 노드 선택
-                if (j == k || j == i) continue;
-                D[i][j] = MIN(D[i][j], D[i][k] + D[k][j]);
-            }
-        }
-    }
-    end2 = clock();
-
+    // 결과 출력
     printf("\nDijkstra Algorithm\n");
     printGraph(dis, cities);
-    printf("\nRunning Time: %lf ms\n\n", (double)(end1 - start1) / CLOCKS_PER_SEC * 1000.0);
-
-    printf("\nFloyd-Warshall Algorithm\n");
-    printGraph(D, cities);
-    printf("\nRunning Time: %lf ms\n\n", (double)(end2 - start2) / CLOCKS_PER_SEC * 1000.0);
-    
+    printf("\nRunning Time: %lf ms\n\n", (double)(end - start) / CLOCKS_PER_SEC * 1000.0);
 
     return 0;
 }
