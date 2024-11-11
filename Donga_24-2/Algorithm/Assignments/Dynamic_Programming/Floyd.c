@@ -83,10 +83,10 @@ int main() {
 
     // Floyd - 기존 D[][]에 가중치 업데이트
     start2 = clock();
-    for (int k = 0; k < N; ++k) { // 경유 노드 선택
-        for (int i = 0; i < N; ++i) { // 시작 노드 선택
+    for (int k = 0; k < N; ++k) { // 경유 노드 선택 - h idx 설정
+        for (int i = 0; i < N; ++i) { // 시작 노드 선택 - h idx 설정
             if (i == k) continue;
-            for (int j = 0; j < N; ++j) { // 도착 노드 선택
+            for (int j = 0; j < N; ++j) { // 도착 노드 선택 - w idx 설정
                 if (j == k || j == i) continue;
                 D[i][j] = MIN(D[i][j], D[i][k] + D[k][j]);
             }
