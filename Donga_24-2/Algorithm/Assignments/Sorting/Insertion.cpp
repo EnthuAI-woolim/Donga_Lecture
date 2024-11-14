@@ -67,5 +67,5 @@ void writeFile(const std::string &filename, int *A, int n) {
     }
 
     file.close();
-    std::cout << "정렬된 숫자들이 " << filename << "에 저장되었습니다.\n";
+    std::cout << filename << "을 생성하였습니다.\n";
 }

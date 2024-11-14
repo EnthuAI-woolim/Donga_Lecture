@@ -65,5 +65,5 @@ void writeFile(const char *filename, int *A, int n) {
     }
 
     fclose(file);
-    printf("정렬된 숫자들이 %s에 저장되었습니다.\n", filename);
+    printf("%s을 생성하였습니다.\n", filename);
 }

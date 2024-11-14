@@ -27,7 +27,7 @@ public class Shell {
             for (Integer num : A) {
                 bw.write(num + "\n");
             }
-            System.out.println("정렬된 숫자들이 " + filename + "에 저장되었습니다.");
+            System.out.println(filename + "을 생성하였습니다.");
         } catch (IOException e) {
             System.out.println("결과 파일을 저장할 수 없습니다.");
         }
