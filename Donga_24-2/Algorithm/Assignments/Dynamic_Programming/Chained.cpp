@@ -68,7 +68,7 @@ int main() {
     int n = d.size() - 1;
     std::vector<std::vector<int>> C(n + 1, std::vector<int>(n + 1, 0));
 
-    for (int L = 1; L <= n - 1; ++L) { // 
+    for (int L = 1; L <= n - 1; ++L) { // L: 곱해지는 행렬의 갯수
         for (int i = 1; i <= n - L; ++i) { // i: 앞에 곱해지는 행렬의 첫번째 행렬의 인덱스(뒤에 곱하는 행렬 크기가 클수록 i의 범위는 작아짐)
             int j = i + L; // j: 뒤에 곱해지는 행렬의 마지막 행렬의 인덱스를 구함
             C[i][j] = INT_MAX;

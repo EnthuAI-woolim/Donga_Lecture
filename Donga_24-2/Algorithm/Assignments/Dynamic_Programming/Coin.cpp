@@ -4,27 +4,17 @@
 #include <iomanip>
 
 int main() {
-    int d[100], n, k = 0;
-
-    std::cout << "Enter the coin values (end with a negative number):\n";
-    while (true) {
-        int coin;
-        std::cin >> coin;
-        if (coin < 0) break;
-        d[k++] = coin;
-    }
-
-    std::cout << "Enter the Change (n): ";
-    std::cin >> n;
-
-
+    int n = 20;
+    int d[] = {16, 10, 5, 1};
+    int k = sizeof(d) / sizeof(d[0]);
     std::vector<int> C(n + 1, INT_MAX);
-    C[0] = 0;
 
+    C[0] = 0;
     for (int j = 1; j <= n; ++j) 
         for (int i = 0; i < k; ++i) 
             if (d[i] <= j && C[j - d[i]] + 1 < C[j]) 
                 C[j] = C[j - d[i]] + 1;
+
 
     std::cout << std::setw(3) << "j";
     for (int j = 0; j <= n; ++j) 
@@ -34,7 +24,9 @@ int main() {
     std::cout << std::setw(3) << "c";
     for (int i = 0; i <= n; ++i) 
         std::cout << std::setw(3) << C[i];
-    std::cout << "\n\n";
+    std::cout << "\n";
+
+    std::cout << "\nMin coins for change " << n << ": " << C[n] << std::endl;
 
     return 0;
 }
@@ -66,5 +58,4 @@ int main() {
 
 // => 위  1, 2, 3번을 전부 했을 때, 제일 작은 값이 n = 15에 저장됨
 
-// j - d[i] == 현재 거스름돈 - 들어갈 수 있는 가장 큰 동전 단위 == 가장 큰 동전 단위를 뺀 나머지 거스름돈 금액 
-
+// cf) j - d[i] == 현재 거스름돈 - 들어갈 수 있는 가장 큰 동전 단위 == 가장 큰 동전 단위를 뺀 나머지 거스름돈 금액 

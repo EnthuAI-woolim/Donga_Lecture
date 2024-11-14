@@ -83,10 +83,10 @@ int main() {
 
     // Floyd - 기존 D[][]에 가중치 업데이트
     start2 = clock();
-    for (int k = 0; k < N; ++k) { // 경유 노드 선택 - h idx 설정
-        for (int i = 0; i < N; ++i) { // 시작 노드 선택 - h idx 설정
+    for (int k = 0; k < N; ++k) { 
+        for (int i = 0; i < N; ++i) { 
             if (i == k) continue;
-            for (int j = 0; j < N; ++j) { // 도착 노드 선택 - w idx 설정
+            for (int j = 0; j < N; ++j) { 
                 if (j == k || j == i) continue;
                 D[i][j] = MIN(D[i][j], D[i][k] + D[k][j]);
             }
@@ -105,3 +105,12 @@ int main() {
 
     return 0;
 }
+
+
+// 각 경유 노드(k)마다 
+// 경우의 수가 나올 수 있는 모든 출발(i), 도착(j)을 전부 업데이트해 나가는 알고리즘
+// D[i][j] vs D[i][k]->D[k][j] 두 가중치 중 더 작은 값을 D[i][j]에 저장하는 방식
+
+// k: 경유 노드 선택 - h idx 설정
+// i: 출발 노드 선택 - h idx 설정
+// j: 도착 노드 선택 - w idx 설정
