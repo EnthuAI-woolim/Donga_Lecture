@@ -1,158 +1,116 @@
-SurveyController.java ==============================================
+SQL ==============================================
 
-package com.web.p4;
+create table product (
+order_id int not null primary key, 
+customer_id varchar(10) not null,
+product_name varchar(30) not null,
+quantity int not null,
+rdate datetime not null
+);
 
+insert into product values
+(1, 'aaa', 'iPad Pro', 2, now()),
+(2, 'bbb', 'iPad Air', 3, now()),
+(3, 'ccc', 'iPad', 1, now()),
+(4, 'ddd', 'iPad mini', 4, now());
+
+
+product.java ==============================================
+
+package com.web.p5;
+
+import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
+public class product {
+	
+	@Id public Integer order_id;
+	public String customer_id;
+	public String product_name;
+	public Integer quantity;
+	@CreationTimestamp public LocalDateTime rdate;
+	
+} // class
+
+
+productRep.java ==============================================
+
+package com.web.p5;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface productRep extends JpaRepository<product, Integer> {}
+
+
+AirController.java ==============================================
+
+package com.web.p5;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class SurveyController {
+public class AirController {
 	
-	@GetMapping("/start")
-	public String start() {
-		return "start";
-	}
-	
-	@PostMapping("/survey1")
-	public String survey1(HttpSession se, @RequestParam("mid") String mid) {
-		se.setAttribute("mid", mid);
-		return "survey1";
-	}
-	
-	@PostMapping("/survey2")
-	public String musician(HttpSession se, @RequestParam("a1") String a1) {
-		se.setAttribute("a1", a1);
-		return "survey2";
-	}
-	
-	@PostMapping("/thanks")
-	public String thanks(HttpSession se, @RequestParam("a2") String a2, Model mo) {
-		
-		if (a2.equals("아이스크림") || a2.equals("빵")) {
-			a2 = a2 + "을";
-		} else {
-			a2 = a2 + "를";
-		}
-		se.setAttribute("a2", a2);
-		return "thanks";
-	}
-	
-	@GetMapping("/result")
-	public String result(HttpSession se, Model mo) {
-		mo.addAttribute("mid", se.getAttribute("mid"));
-		mo.addAttribute("a1", se.getAttribute("a1"));
-		mo.addAttribute("a2", se.getAttribute("a2"));
-		return "result";
-	}
-
-}
+	 @Autowired
+	 private memberRep mrep;
+	 @Autowired
+	 private productRep prep;
+	 
+	 @GetMapping("/memberList")
+	 public String memberList(Model mo) {
+		 List<member> arr = mrep.findAll(); 
+		 mo.addAttribute("arr",arr);
+		 return "memberList";
+	 }
+	 
+	 @GetMapping("/productList")
+	 public String productList(Model mo) {
+		 List<product> arr = prep.findAll();
+		 mo.addAttribute("arr", arr);
+		 return "productList";
+	 }
+	 
+} 
 
 
+productList.html ==============================================
 
-start.html ==============================================
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>시작</title>
-</head>
-<body style="background-color: yellow">
+<title>ch5 Quiz12</title>
 
-	<h2>설문조사</h2>
-	<form method="post" action="survey1">
-		아이디 : <input name="mid"><p>
-		<button type="submit">확인</button>
-	</form>
-	
-</body>
-</html>
-
-
-survey1.html ==============================================
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>food style</title>
-</head>
-<body>
-
-	<h2>좋아하는 음식 종류</h2>
-	<form method="post" action="/survey2">
-	  	<input type="radio" name="a1" value="한식">한식<br>
-	  	<input type="radio" name="a1" value="중식">중식<br>
-	  	<input type="radio" name="a1" value="일식">일식<br>
-	  	<input type="radio" name="a1" value="양식">양식<p>
-	  	<button type="submit">선택</button>
-	</form>
-	
-</body>
-</html>
-
-
-survey2.html ==============================================
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>desert</title>
-</head>
-<body>
-
-	<h2>좋아하는 디저트</h2>
-	<form method="post" action="/thanks">
-		<select name="a2">
-			<option>아이스크림
-			<option>빵
-			<option>케이크
-			<option>쿠키
-		</select>
-		<input type="submit" value="선택">
-	</form>
-
-</body>
-</html>
-
-
-thanks.html ==============================================
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>thanks</title>
-</head>
-<body>
-
-	<h2>설문에 응해주셔서 감사합니다!!</h2>
-	<h2><a href="/result">결과보기</a></h2>
-
-</body>
-</html>
-
-
-result.html ==============================================
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>설문 결과</title>
 <style>
-	body { background-color: lime; }
-	#mid { color: blue; }
+	body { background-color: orange; }
+	table {width: 600px;}
+	#order_id { color:blue; font-weight:bold; }
+	#quantity { color:red; text-align:right; }
 </style>
+
 </head>
 <body>
 
-	<h3>
-	 <span th:text="${mid}" id="mid">mid</span>님은<p>
-	 <span th:text="${a1}">a1</span>을 좋아하는 음식 종류로 선택하셨고,<p>
-	 <span th:text="${a2}">a2</span> 좋아하는 디저트로 선택하셨습니다!!
-	</h3>
+	<div align="center">
+		<h3> 전체 제품 리스트</h3>
+		<table border="1">
+			 <tr> <th>구매번호 <th>고객Id <th>상품명 <th>구매수량 <th>구매일시
+			 <tr th:each="a:${arr}"> 
+				 <td th:text="${a.order_id}" id="order_id">order_id
+				 <td th:text="${a.customer_id}">customer_id
+				 <td th:text="${a.product_name}">product_name
+				 <td th:text="${a.quantity}" id="quantity">quantity
+				 <td th:text="${a.rdate}">rdate
+		</table> <p>
+		
+	</div>
 
 </body>
 </html>

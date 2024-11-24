@@ -1,0 +1,119 @@
+SQL ==============================================
+
+create table product (
+order_id int not null primary key, 
+customer_id varchar(10) not null,
+product_name varchar(30) not null,
+quantity int not null,
+rdate datetime not null
+);
+
+insert into product values
+(1, 'aaa', 'iPad Pro', 2, now()),
+(2, 'bbb', 'iPad Air', 3, now()),
+(3, 'ccc', 'iPad', 1, now()),
+(4, 'ddd', 'iPad mini', 4, now());
+
+
+product.java ==============================================
+
+package com.web.p5;
+
+import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
+public class product {
+	
+	@Id public Integer order_id;
+	public String customer_id;
+	public String product_name;
+	public Integer quantity;
+	@CreationTimestamp public LocalDateTime rdate;
+	
+} // class
+
+
+productRep.java ==============================================
+
+package com.web.p5;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface productRep extends JpaRepository<product, Integer> {}
+
+
+AirController.java ==============================================
+
+package com.web.p5;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class AirController {
+	
+	 @Autowired
+	 private memberRep mrep;
+	 @Autowired
+	 private productRep prep;
+	 
+	 @GetMapping("/memberList")
+	 public String memberList(Model mo) {
+		 List<member> arr = mrep.findAll(); 
+		 mo.addAttribute("arr",arr);
+		 return "memberList";
+	 }
+	 
+	 @GetMapping("/productList")
+	 public String productList(Model mo) {
+		 List<product> arr = prep.findAll();
+		 mo.addAttribute("arr", arr);
+		 return "productList";
+	 }
+	 
+} 
+
+
+productList.html ==============================================
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ch5 Quiz12</title>
+
+<style>
+	body { background-color: orange; }
+	table {width: 600px;}
+	#order_id { color:blue; font-weight:bold; }
+	#quantity { color:red; text-align:right; }
+</style>
+
+</head>
+<body>
+
+	<div align="center">
+		<h3> 전체 제품 리스트</h3>
+		<table border="1">
+			 <tr> <th>구매번호 <th>고객Id <th>상품명 <th>구매수량 <th>구매일시
+			 <tr th:each="a:${arr}"> 
+				 <td th:text="${a.order_id}" id="order_id">order_id
+				 <td th:text="${a.customer_id}">customer_id
+				 <td th:text="${a.product_name}">product_name
+				 <td th:text="${a.quantity}" id="quantity">quantity
+				 <td th:text="${a.rdate}">rdate
+		</table> <p>
+		
+	</div>
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>다이어리 작성</title>
+	<style>
+		body { background: #FAECC5; }
+	</style>
+</head>
+<body>
+
+	<h2>자유롭게 작성하기</h2>
+	<form method="get" action="/diary/insert">
+		제목: <input type="text" name="je"> <p>
+		내용:<br>
+		<textarea name="nae" rows="4" cols="40" required></textarea><p>
+		<button>저장</button>
+	</form>
+
+</body>
+</html>

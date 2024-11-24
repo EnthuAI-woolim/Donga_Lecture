@@ -1,0 +1,56 @@
+Quiz =================================
+
+1) 4
+2) 1
+3) 2
+4) Oracle, MariaDB, MongoDB
+5) 3
+6) 4
+7) 
+create table test (
+	userid 	varchar(20) not null primary key,
+	pw 		varchar(20) not null,
+	grade	int 		not null
+);
+
+8) 
+drop table test;
+
+9)
+insert into test values 
+	('1', 'hello', 2),
+	('2', 'hello', 1),
+	('3', 'Hi', 2);
+
+10)
+update test set pw='Hi' where grade=1;
+
+11)
+delete from test;
+
+13) 
+1. <input> -> <textarea></textarea>
+2. button태그를 form태그 안으로 이동
+
+14)
+location.href="/diaryList";
+location.href="/diary";
+
+15)
+th:each
+
+16)
+auto_increment
+
+17)
+@Entity
+
+18)
+diary, Integer
+
+19)
+"redirect:/diaryPop"
+
+20)
+drep.findAll()
+
