@@ -27,3 +27,16 @@ create table diary (
 
 insert into diary values (null, 'test', 'Hello, world!', now());
 select * from diary;
+
+# Quiz 21
+drop table if exists survey;
+create table survey (
+	no int auto_increment primary key,
+	userid varchar(10) not null,
+	food varchar(30) not null,
+	dessert varchar(30) not null,
+	sdate datetime not null
+);
+
+
+
