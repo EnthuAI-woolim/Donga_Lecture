@@ -104,7 +104,7 @@ int main()
     // Size of the array
     int n = readFile("input.txt", arr, MAX_NUMBERS);
 
-    printf("Unsorted array : ");
+    // printf("Unsorted array : ");
 
     // Print the unsorted array
     print(arr, n);
@@ -117,7 +117,7 @@ int main()
     // printf("Sorted array : ");
 
     // Print the sorted array
-    print(arr, n);
+    // print(arr, n);
 
     return 0;
 }
