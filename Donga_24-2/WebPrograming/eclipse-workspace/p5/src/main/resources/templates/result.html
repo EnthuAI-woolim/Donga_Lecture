@@ -5,16 +5,16 @@
 <title>설문 결과</title>
 <style>
 	body { background-image: url("/image.png"); }
-	#mid { color: blue; }
+	#answer { color: blue; }
 </style>
 
 </head>
 <body>
 
 	<h3>
-	 <span th:text="${mid}" id="mid">mid</span>님은<p>
-	 <span th:text="${a1}">a1</span>을 좋아하는 음식 종류로 선택하셨고,<p>
-	 <span th:text="${a2}">a2</span> 좋아하는 디저트로 선택하셨습니다!!<p>
+	 <span th:text="${mid}">mid</span>님은<p>
+	 <span th:text="${a1}" id="answer">a1</span>을 좋아하는 음식 종류로 선택하셨고,<p>
+	 <span th:text="${a2}" id="answer">a2</span> 디저트를 좋아하는 후식으로 선택하셨습니다!!<p>
 	 <a href="/surveyList">결과보기</a>
 	</h3>
 

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style> 
+	h3 { color:brown;} 
+	fieldset{width: 400px; border: 1px solid orange; margin-bottom: 15px;}
+	legend { color:darkgray; font-size:0.8em;} 
+	textarea{ background:lightyellow;} 
+	button { padding:5px 20px; margin-right:10px; }
+</style>
+</head>
+<body>
+	
+	<form method="post" action="/iamAnswer">
+		<h3>자기소개</h3>
+		<fieldset>
+			<legend>성별과 나이를 입력하세요.</legend>
+			성별: <input type="radio" name="gender" value="남"checked>남자
+			<input type="radio" name="gender" value="여">여자<br> 
+			나이: <input type="number" name="age" required>
+		</fieldset>
+		
+		<fieldset>
+			<legend>관심있는 식문화를 선택하세요.(복수 가능)</legend>
+			<input type="checkbox" name="foods" value="소주에 삼겹살">소주에 삼겹살
+			<input type="checkbox" name="foods" value="치맥">치맥
+			<input type="checkbox" name="foods" value="마라탕">마라탕
+			<input type="checkbox" name="foods" value="케이크">케이크
+		</fieldset>
+		
+		<fieldset>
+			<legend>나의 자신감은 어느 정도인가?</legend>
+			나는 무지 잘 생겼다. <input type="range" name="face" min="1" max="5" value="3">
+			나는 마음만 먹으면 A+이다. <input type="range" name="grade" min="1" max="5" value="3">
+			수업 중에 집중을 잘하고 있다. <input type="range" name="attention"min="1" max="5" value="3">
+		</fieldset>
+		
+		<textarea name="comments" rows="4" cols="61" placeholder="Promote yourself"></textarea><p>
+		<button type="submit">작성완료</button> <button type="reset">새로작성</button> 
+	</form>
+	
+	
+</body>
+</html>

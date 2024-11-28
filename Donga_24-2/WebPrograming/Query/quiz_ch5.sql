@@ -38,5 +38,7 @@ create table survey (
 	sdate datetime not null
 );
 
+select * from survey;
+
 
 

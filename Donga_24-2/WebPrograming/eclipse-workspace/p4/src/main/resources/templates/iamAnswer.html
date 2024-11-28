@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	저는 <span th:text="${age}">21</span>세 <span th:text="${gender}">남</span>학생입니다.<p>
+	
+	
+	<table>
+		<tr> 좋아하는 음식은 다음과 같습니다.
+		<tr th:each="food:${foods}"> <td th:text="${food}">
+	</table> <p>
+	
+	
+	저의 자신감 수치는(1~5)는 다음과 같습니다. <br>
+	외모 자심감: <span th:text="${face}">3</span> <br>
+	학점 자심감: <span th:text="${grade}">3</span> <br>
+	수업 자심감: <span th:text="${attention}">3</span> <p>
+	
+	<a th:text="${comments}"></a>
+	
+</body>
+</html>

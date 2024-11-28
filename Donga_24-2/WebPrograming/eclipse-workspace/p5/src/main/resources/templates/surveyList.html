@@ -7,8 +7,7 @@
 <style>
 	body { background-color: orange; }
 	table {width: 600px;}
-	#order_id { color:blue; font-weight:bold; }
-	#quantity { color:red; text-align:right; }
+	#userid { color:blue; font-weight:bold; }
 </style>
 
 </head>
@@ -17,15 +16,15 @@
 	<div align="center">
 		<h3> 전체 제품 리스트</h3>
 		<table border="1">
-			 <tr> <th>구매번호 <th>고객Id <th>상품명 <th>구매수량 <th>구매일시
+			 <tr> <th>no <th>설문자id <th>음식 <th>디저트 <th>설문일시
 			 <tr th:each="a:${arr}"> 
-				 <td th:text="${a.no}" id="order_id">order_id
-				 <td th:text="${a.userid}">customer_id
-				 <td th:text="${a.food}">product_name
-				 <td th:text="${a.dessert}" id="quantity">quantity
-				 <td th:text="${a.sdate}">rdate
+				 <td th:text="${a.no}" >no
+				 <td th:text="${a.userid}" id="userid">userid
+				 <td th:text="${a.food}">food
+				 <td th:text="${a.dessert}">dessert
+				 <td th:text="${a.sdate}">sdate
 		</table> <p>
-		
+		<a href="/start">시작으로 돌아가기</a>
 	</div>
 
 </body>
