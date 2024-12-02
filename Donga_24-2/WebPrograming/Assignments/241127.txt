@@ -1,0 +1,46 @@
+timeTable.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>시간표</title>
+</head>
+<style>
+	table { width: 600px; }
+	#firstLine { background-color: pink; }
+	.num { background-color: skyblue; }
+</style>
+<body>
+	
+	<h2><mark>시간표</mark></h2>
+	<table border="1">
+		<tr id="firstLine"> <th>교시 <th>월 <th>화 <th>수
+		<tr> <th class="num">1 <td>머신러닝 <td rowspan="2">테니스 <td rowspan="3">수학 x<sup>2</sup>+y<sup>2</sup>=1
+		<tr> <th class="num">2 <td>웹프로그래밍
+		<tr> <th class="num">3 <td>파일처리론 <td>멀티미디어
+		<tr> <th class="num">4 <th colspan="3">점심 및 휴식시간입니다!
+		<tr> <th class="num">5 <td>소프트웨어공학 <td>알고리즘 <td>딥러닝
+	</table>
+	
+</body>
+</html>
+
+
+
+MyController.java =================================
+
+package com.web.p6;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class MyController {
+
+	@GetMapping("/timeTable")
+	public String timeTable() {
+		return "timeTable";
+	}
+
+}

@@ -1,0 +1,284 @@
+start.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>시작</title>
+</head>
+<body style="background-color: yellow">
+
+	<h2>설문조사</h2>
+	<form method="post" action="survey1">
+		아이디 : <input name="mid"><p>
+		<button type="submit">확인</button>
+	</form>
+	
+</body>
+</html>
+
+
+
+survey1.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>food style</title>
+<style>
+	div { 
+		display: inline-block;
+		width: 300px; 
+		height: 200px; 
+		background-size: cover; 
+		background-position: center;
+	}
+</style>
+</head>
+<body>
+
+	<h2>좋아하는 음식 종류</h2>
+	<form method="post" action="/survey2">
+	  	<input type="radio" name="a1" value="한식" checked>한식<br>
+	  	<input type="radio" name="a1" value="중식">중식<br>
+	  	<input type="radio" name="a1" value="일식">일식<br>
+	  	<input type="radio" name="a1" value="양식">양식<p>
+	  	<button type="submit">선택</button>
+	</form>
+	<div style="background-image: url('/korean.jpg')"></div>
+	<div style="background-image: url('/chinese.jpg')"></div>
+	<div style="background-image: url('/japanese.jpg')"></div>
+	<div style="background-image: url('/western.jpg')"></div>
+	
+</body>
+</html>
+
+
+survey2.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>desert</title>
+<style>
+	div { 
+		display: inline-block;
+		width: 300px; 
+		height: 200px; 
+		background-size: cover; 
+		background-position: center;
+	}
+</style>
+</head>
+<body>
+
+	<h2>좋아하는 디저트</h2>
+	<form method="post" action="/thanks">
+		<select name="a2">
+			<option>아이스크림
+			<option>빵
+			<option>케이크
+			<option>쿠키
+		</select>
+		<input type="submit" value="선택">
+	</form>
+	<div style="background-image: url('/icecream.jpg')"></div>
+	<div style="background-image: url('/bread.jpg')"></div>
+	<div style="background-image: url('/cake.jpg')"></div>
+	<div style="background-image: url('/cookies.jpg')"></div>
+
+</body>
+</html>
+
+
+thanks.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>thanks</title>
+</head>
+<body>
+
+	<h2>설문에 응해주셔서 감사합니다!!</h2>
+	<h2><a href="/result" style="background-color: pink">결과보기</a></h2>
+
+</body>
+</html>
+
+
+result.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>설문 결과</title>
+<style>
+	body { background-image: url("/bear.jpg"); }
+	#answer { color: blue; }
+</style>
+
+</head>
+<body>
+
+	<h3>
+	 <span th:text="${mid}">mid</span>님은<p>
+	 <span th:text="${a1}" id="answer">a1</span>을 좋아하는 음식 종류로 선택하셨고,<p>
+	 <span th:text="${a2}" id="answer">a2</span> 디저트를 좋아하는 후식으로 선택하셨습니다!!<p>
+	 <a href="/surveyList">결과보기</a>
+	</h3>
+
+</body>
+</html>
+
+
+surveyList.html =================================
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>설문 리스트</title>
+
+<style>
+	body { background-color: orange; }
+	table {width: 600px;}
+	#userid { color:blue; font-weight:bold; }
+</style>
+
+</head>
+<body>
+
+	<div align="center">
+		<h3>전체 설문 리스트</h3>
+		<table border="1">
+			 <tr> <th>no <th>설문자id <th>음식 <th>디저트 <th>설문일시
+			 <tr th:each="a:${arr}"> 
+				 <td th:text="${a.no}" >no
+				 <td th:text="${a.userid}" id="userid">userid
+				 <td th:text="${a.food}">food
+				 <td th:text="${a.dessert}">dessert
+				 <td th:text="${a.sdate}">sdate
+		</table> <p>
+		<a href="/start">시작으로 돌아가기</a>
+	</div>
+
+</body>
+</html>
+
+
+survey.java =================================
+
+package com.web.p5;
+
+import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class survey {
+	
+	@Id 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer no;
+	public String userid;
+	public String food;
+	public String dessert;
+	@CreationTimestamp public LocalDateTime sdate;
+	
+} // class
+
+
+
+surveyRep.java =================================
+
+package com.web.p5;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface surveyRep extends JpaRepository<survey, Integer> {}
+
+
+
+SurveyController.java =================================
+
+package com.web.p5;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class SurveyController {
+	
+	@Autowired
+	private surveyRep srep;
+	
+	@GetMapping("/start")
+	public String start() {
+		return "start";
+	}
+	
+	@PostMapping("/survey1")
+	public String survey1(HttpSession se, @RequestParam("mid") String mid) {
+		se.setAttribute("mid", mid);
+		return "survey1";
+	}
+	
+	@PostMapping("/survey2")
+	public String musician(HttpSession se, @RequestParam("a1") String a1) {
+		se.setAttribute("a1", a1);
+		return "survey2";
+	}
+	
+	@PostMapping("/thanks")
+	public String thanks(HttpSession se, @RequestParam("a2") String a2, Model mo) {
+		se.setAttribute("a2", a2);
+		return "thanks";
+	}
+	
+	@GetMapping("/result")
+	public String result(HttpSession se, Model mo) {
+		survey m = new survey();
+		m.userid = (String) se.getAttribute("mid");
+		m.food = (String) se.getAttribute("a1");
+		m.dessert = (String) se.getAttribute("a2");
+		srep.save(m);
+		
+		mo.addAttribute("mid", se.getAttribute("mid"));
+		mo.addAttribute("a1", se.getAttribute("a1"));
+		mo.addAttribute("a2", se.getAttribute("a2"));
+		
+		return "result";
+	}
+	
+	@GetMapping("/surveyList")
+	public String surveyList(Model mo) {
+		mo.addAttribute("arr", srep.findAll());
+		return "surveyList";
+	}
+
+}
+
+
+sql =================================
+
+create table survey (
+	no int auto_increment primary key,
+	userid varchar(10) not null,
+	food varchar(30) not null,
+	dessert varchar(30) not null,
+	sdate datetime not null
+);

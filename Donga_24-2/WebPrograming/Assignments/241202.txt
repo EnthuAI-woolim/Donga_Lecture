@@ -1,0 +1,168 @@
+star1.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>첫 번째 매치</title>
+<style>
+	img { width: 500px; height:500px; }
+</style>
+</head>
+<body>
+	<div align="center">
+	
+		<h1>Who is your favorite star? (첫 번째 매치)</h1>
+		
+		<form method="get" action="/star/2">
+			<table border="1">
+				<tr> 
+					<td><img src="/람보르기니.jpg"> 
+					<td><img src="/옵티머스.jpg">
+				<tr > 
+					<th><input type="radio" name="choice1" value="람보르기니">람보르기니 
+					<th><input type="radio" name="choice1" value="옵티머스">옵티머스
+			</table> <p>
+			<input type="submit" value="선택">
+		</form>
+		
+	</div>
+</body>
+</html>
+
+
+star2.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>두 번째 매치</title>
+<style>
+	img { width: 500px; height:500px; }
+</style>
+</head>
+<body>
+	<div align="center">
+	
+		<h1>Who is your favorite star? (두 번째 매치)</h1>
+		
+		<form method="get" action="/star/3">
+			<table border="1">
+				<tr> 
+					<td><img src="/해바리기.jpg"> 
+					<td><img src="/둘리.jpg">
+				<tr> 
+					<th><input type="radio" name="choice2" value="해바리기">해바리기 by Van Gogh 
+					<th><input type="radio" name="choice2" value="둘리">둘리
+			</table> <p>
+			<input type="submit" value="선택">
+		</form>
+		
+	</div>
+</body>
+</html>
+
+
+
+star3.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>결승</title>
+<style>
+	body { background-color: pink; }
+	img { width: 500px; height:500px; }
+</style>
+</head>
+<body>
+	<div align="center">
+	
+		<h1>Who is your favorite star? (결승!!)</h1>
+		
+		<form method="get" action="/star/winner">
+			<table border="1">
+				<tr> 
+					<td><img th:src="|/${choice1}.jpg|">
+					<td><img th:src="|/${choice2}.jpg|">
+				<tr> 
+					<th><input type="radio" name="winner" th:value="${choice1}" th:text="${choice1}">
+					<th><input type="radio" name="winner" th:value="${choice2}" th:text="${choice2}">
+			</table> <p>
+			<input type="submit" value="최종 선택">
+		</form>
+		
+	</div>
+</body>
+</html>
+
+
+starWinner.html =================================
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Congratulations</title>
+<style>
+	body { background-color: yellow; }
+	img { width: 500px; height:500px; }
+</style>
+</head>
+<body>
+	<div align="center">
+	
+		<h1>Congratulations</h1>
+		
+		<h2>승자는 <span th:text="${winner}"></span>입니다!!!</h2>
+		
+		<img th:src="|/${winner}.jpg|"> <p>
+		
+		<a href="/star/1">결과보기</a>
+		
+	</div>
+</body>
+</html>
+
+
+WorldCup.java =================================
+
+package com.web.p6;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class WorldCup {
+
+	@GetMapping("/star/1")
+	public String star1() {
+		return "star1";
+	}
+	
+	@GetMapping("/star/2")
+	public String star2(HttpSession se, @RequestParam("choice1") String choice1) {
+		se.setAttribute("choice1", choice1);
+		return "star2";
+	}
+	
+	@GetMapping("/star/3")
+	public String star3(HttpSession se, @RequestParam("choice2") String choice2, Model mo) {
+		se.setAttribute("choice2", choice2);
+		mo.addAttribute("choice1", se.getAttribute("choice1"));
+		mo.addAttribute("choice2", se.getAttribute("choice2"));
+		return "star3";
+	}
+	
+	@GetMapping("/star/winner")
+	public String starWinner(@RequestParam("winner") String winner, Model mo) {
+		mo.addAttribute("winner", winner);
+		return "starWinner";
+	}
+}

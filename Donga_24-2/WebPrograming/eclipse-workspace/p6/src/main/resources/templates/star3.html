@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>결승</title>
+<style>
+	body { background-color: pink; }
+	img { width: 500px; height:500px; }
+</style>
+</head>
+<body>
+	<div align="center">
+	
+		<h1>Who is your favorite star? (결승!!)</h1>
+		
+		<form method="get" action="/star/winner">
+			<table border="1">
+				<tr> 
+					<td><img th:src="|/${choice1}.jpg|">
+					<td><img th:src="|/${choice2}.jpg|">
+				<tr> 
+					<th><input type="radio" name="winner" th:value="${choice1}" th:text="${choice1}">
+					<th><input type="radio" name="winner" th:value="${choice2}" th:text="${choice2}">
+			</table> <p>
+			<input type="submit" value="최종 선택">
+		</form>
+		
+	</div>
+</body>
+</html>
