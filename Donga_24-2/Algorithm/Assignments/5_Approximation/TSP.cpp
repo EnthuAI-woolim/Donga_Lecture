@@ -1,97 +1,108 @@
 #include <iostream>
-#include <map>
 #include <vector>
+#include <string>
 #include <cmath>
-#include <limits>
-#include <queue>
+#include <algorithm>
 
 using namespace std;
 
-const int INF = numeric_limits<int>::max();
-const int FALSE = 0;
-const int TRUE = 1;
+struct Node {
+    string name; 
+    int x, y;
+};
 
-// 두 도시 간 거리 계산
-double calculateDistance(pair<int, int> p1, pair<int, int> p2) {
-    return sqrt(pow(p1.first - p2.first, 2) + pow(p1.second - p2.second, 2));
-}
 
-// 최솟값을 가지는 노드를 찾는 함수
-int update(vector<double> &dis, int n, vector<bool> &visited) {
-    double min = INF;
-    int min_pos = -1;
+struct Edge {
+    int src, dest;
+    double weight; 
+};
 
-    for (int i = 0; i < n; i++) {
-        if (dis[i] < min && !visited[i]) {
-            min = dis[i];
-            min_pos = i;
+// DisjointSet 클래스 정의
+class DisjointSet {
+public:
+    DisjointSet(int n) {
+        parent.resize(n);
+        rank.resize(n, 0);
+        for (int i = 0; i < n; i++) {
+            parent[i] = i;
         }
     }
 
-    return min_pos;
-}
-
-// 다익스트라 알고리즘
-void Shortest_Path_Dijkstra(char start, map<char, pair<int, int>> &edges) {
-    int n = edges.size();
-    map<char, int> indexMap;
-    vector<vector<double>> weight(n, vector<double>(n, INF));
-    vector<double> dis(n, INF);
-    vector<bool> visited(n, false);
-
-    // 도시 이름을 인덱스로 매핑
-    int idx = 0;
-    for (auto &[city, coord] : edges) {
-        indexMap[city] = idx++;
+    int find(int u) {
+        if (parent[u] != u)
+            parent[u] = find(parent[u]);
+        return parent[u];
     }
 
-    // 그래프 가중치 초기화
-    for (auto &[city1, coord1] : edges) {
-        for (auto &[city2, coord2] : edges) {
-            if (city1 != city2) {
-                weight[indexMap[city1]][indexMap[city2]] = calculateDistance(coord1, coord2);
+    void unionSets(int u, int v) {
+        int rootU = find(u);
+        int rootV = find(v);
+
+        if (rootU != rootV) {
+            if (rank[rootU] > rank[rootV]) {
+                parent[rootV] = rootU;
+            } else if (rank[rootU] < rank[rootV]) {
+                parent[rootU] = rootV;
+            } else {
+                parent[rootV] = rootU;
+                rank[rootU]++;
             }
         }
     }
 
-    // 시작 노드 초기화
-    int startIdx = indexMap[start];
-    dis[startIdx] = 0;
+private:
+    vector<int> parent;
+    vector<int> rank;
+};
 
-    // 다익스트라 알고리즘 실행
-    for (int i = 0; i < n - 1; i++) {
-        int u = update(dis, n, visited);
-        if (u == -1) break;  // 더 이상 방문할 노드가 없는 경우 종료
-        visited[u] = true;
+// Kruskal 함수
+vector<Edge> kruskal(const vector<Node>& nodes) {
+    int numVertices = nodes.size();
+    DisjointSet ds(numVertices);
 
-        for (int v = 0; v < n; v++) {
-            if (!visited[v] && weight[u][v] != INF && dis[u] + weight[u][v] < dis[v]) {
-                dis[v] = dis[u] + weight[u][v];
-            }
+    vector<Edge> edges;
+
+    // 모든 노드 간의 간선 생성
+    for (int i = 0; i < numVertices; i++) {
+        for (int j = i + 1; j < numVertices; j++) {
+            double weight = sqrt(pow(nodes[i].x - nodes[j].x, 2) + pow(nodes[i].y - nodes[j].y, 2));
+            edges.push_back({i, j, weight});
         }
     }
 
-    // 결과 출력
-    cout << "Shortest distances from " << start << ":\n";
-    for (auto &[city, idx] : indexMap) {
-        cout << start << " -> " << city << ": ";
-        if (dis[idx] == INF) {
-            cout << "INF\n";
-        } else {
-            cout << dis[idx] << "\n";
+    // 간선 정렬 (가중치 오름차순)
+    sort(edges.begin(), edges.end(), [](const Edge& a, const Edge& b) {
+        return a.weight < b.weight;
+    });
+
+    vector<Edge> mst;
+
+    // 간선들을 하나씩 검사하며 MST에 추가
+    for (const Edge& edge : edges) {
+        if (ds.find(edge.src) != ds.find(edge.dest)) {
+            mst.push_back(edge);
+            ds.unionSets(edge.src, edge.dest);
         }
     }
+
+    return mst;
 }
+
 
 int main() {
-    // 입력 데이터
-    map<char, pair<int, int>> edges = {
-        {'A', {0, 3}}, {'B', {7, 5}}, {'C', {6, 0}}, {'D', {4, 3}},
-        {'E', {1, 0}}, {'F', {5, 3}}, {'H', {4, 1}}, {'G', {2, 2}}
+    vector<Node> nodes = {
+        {"A", 0, 3}, {"B", 7, 5}, {"C", 6, 0}, {"D", 4, 3},
+        {"E", 1, 0}, {"F", 5, 3}, {"H", 4, 1}, {"G", 2, 2}
     };
 
-    // 시작점 A에서 최단 거리 계산
-    Shortest_Path_Dijkstra('A', edges);
+    vector<Edge> mst = kruskal(nodes);
+
+    // // MST 출력
+    // cout << "Edges in the Minimum Spanning Tree:" << endl;
+    // for (const Edge& edge : mst) {
+    //     cout << nodes[edge.src].name << " - " << nodes[edge.dest].name
+    //          << " (Weight: " << edge.weight << ")" << endl;
+    // }
 
     return 0;
 }
