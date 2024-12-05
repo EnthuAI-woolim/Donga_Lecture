@@ -1,5 +1,6 @@
 package com.web.p6;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,9 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class WorldCup {
+	
+	@Autowired
+	private starRep sRep;
 
 	@GetMapping("/star/1")
 	public String star1() {
@@ -31,7 +35,20 @@ public class WorldCup {
 	
 	@GetMapping("/star/winner")
 	public String starWinner(@RequestParam("winner") String winner, Model mo) {
+		sRep.increaseFcount(winner);
 		mo.addAttribute("winner", winner);
 		return "starWinner";
+	}
+	
+	@GetMapping("/star/list")
+	public String starList(Model mo) {
+		mo.addAttribute("arr", sRep.findAll());
+		return "starList";
+	}
+	
+	@GetMapping("/star/reset")
+	public String starReset() {
+		sRep.starReset();
+		return "redirect:/star/list";
 	}
 }

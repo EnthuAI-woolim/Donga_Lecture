@@ -1,0 +1,11 @@
+travel-project-app\android\gradle\wrapper\gradle-wrapper.properties 
+
+build.gradle 2개
+
+settings.gradle
+
+main.dart
+
+ui/chatting 에 dart파일들
+
+android폴더에 google-services.json 추가

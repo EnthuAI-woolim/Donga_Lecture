@@ -1,19 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:test_project/ui/chatting/chatting_page.dart';
 
-void main() {
-  runApp(const MyApp());
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-
-    return const MaterialApp(
-      home: .
-      // Text('안녕'),
-      // Icon(icons.star),
-      // Image.asset("경로"),
+    return MaterialApp(
+      title: 'Travel Chat App',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: ChattingPage(),
     );
   }
 }

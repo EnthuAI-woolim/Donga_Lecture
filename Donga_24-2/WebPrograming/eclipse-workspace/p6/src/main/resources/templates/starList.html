@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>투표 결과</title>
+<style>
+	body { background-color: yellow; }
+	img { width: 500px; height:500px; }
+	#fcount { color: blue; text-align:right; }
+</style>
+</head>
+<body>
+	<div align="center">
+	
+		<h1>투표 결과</h1>
+		
+		<table border="1">
+			<tr> <th>이름 <th>우승 횟수
+			<tr th:each="a:${arr}">
+				<td th:text="${a.name}"> <td th:text="${a.fcount}" id="fcount">
+		</table> <p>
+		
+		<button type="submit" href="/star/reset">투표결과 초기화</button> <p>
+		
+		<a href="/star/1">4강전 다시 시작</a>
+		
+	</div>
+</body>
+</html>
