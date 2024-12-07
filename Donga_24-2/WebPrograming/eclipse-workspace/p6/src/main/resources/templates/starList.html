@@ -20,7 +20,9 @@
 				<td th:text="${a.name}"> <td th:text="${a.fcount}" id="fcount">
 		</table> <p>
 		
-		<button type="submit" href="/star/reset">투표결과 초기화</button> <p>
+		<form method="get" action="/star/reset">
+			<button type="submit">투표결과 초기화</button>
+		</form> <p>
 		
 		<a href="/star/1">4강전 다시 시작</a>
 		
