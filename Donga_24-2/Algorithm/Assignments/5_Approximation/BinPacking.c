@@ -19,6 +19,8 @@ int main() {
     return 0;
 }
 
+
+
 // 통 배열 초기화 함수
 void initialize_bins(int bins[][100], int n) {
     for (int i = 0; i < n; i++) {

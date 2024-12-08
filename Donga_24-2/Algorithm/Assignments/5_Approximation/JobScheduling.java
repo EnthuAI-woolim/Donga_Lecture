@@ -46,7 +46,9 @@ public class JobScheduling {
         for (int time : L) {
             if (time > maxTime) maxTime = time;
         }
-    
+
+        System.out.println("Job Scheduling Table");
+
         // 테이블 헤더 출력
         System.out.print("m\\t|");
         for (int t = 0; t <= maxTime; t++) {
@@ -92,11 +94,5 @@ public class JobScheduling {
             System.out.println();
         }
     }
-    
-    
-    
-    
-    
-    
     
 }

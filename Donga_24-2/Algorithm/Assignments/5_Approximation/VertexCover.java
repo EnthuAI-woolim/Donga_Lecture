@@ -1,119 +1,74 @@
 import java.util.*;
 
-// 이 클래스는 인접 리스트를 사용하여 무방향 그래프를 나타냅니다.
 class VertexCover {
     private int V;  // 노드 수
-    private LinkedList<Integer>[] adj;  // 인접 리스트
-    private List<String> edges;  // 각 엣지 번호에 연결된 노드들을 저장
+    private List<List<Integer>> adj;  // 인접 리스트
 
     // 그래프 초기화
     VertexCover(int v) {
         V = v;
-        adj = new LinkedList[v];
-        edges = new ArrayList<>();
+        adj = new ArrayList<>(v);
         for (int i = 0; i < v; ++i) {
-            adj[i] = new LinkedList<Integer>();
+            adj.add(new ArrayList<>());
         }
     }
 
-    // 엣지 번호를 추가하는 메서드 (노드 번호 기준으로)
-    public void addEdge(int v, int[] edgeNumbers) {
-        for (int edgeIndex : edgeNumbers) {
-            // 엣지가 존재하지 않으면 새로 추가
-            if (edgeIndex >= edges.size()) {
-                edges.add(v + "-" + edgeIndex);  // 엣지 번호와 연결된 노드 정보 추가
-            } else {
-                // 기존 엣지에 추가하기
-                String[] edge = edges.get(edgeIndex).split("-");
-                int u = Integer.parseInt(edge[0]);
-                edges.set(edgeIndex, u + "-" + v);  // 연결된 노드를 엣지 번호로 저장
-            }
+    // 엣지 추가 메서드
+    public void addEdge(int u, int[] neighbors) {
+        for (int v : neighbors) {
+            adj.get(u).add(v);  // u 노드와 연결된 v 노드를 추가
+            adj.get(v).add(u);  // v 노드와 연결된 u 노드를 추가 (양방향)
         }
     }
 
-    // Greedy Set Cover Algorithm을 사용하여 최소 정점 커버를 구하는 방법
-    public Set<Integer> greedySetCover() {
-        Set<Integer> vertexCover = new HashSet<>();
-        Set<Integer> uncoveredEdges = new HashSet<>();
-
-        // 모든 엣지를 uncoveredEdges에 추가
-        for (int i = 0; i < edges.size(); i++) {
-            uncoveredEdges.add(i);
-        }
-
-        // 커버할 엣지가 없을 때까지 반복
-        while (!uncoveredEdges.isEmpty()) {
-            Map<Integer, Integer> vertexCoverage = new HashMap<>();
-
-            // 각 엣지가 커버되는 노드를 찾기
-            for (Integer edgeIndex : uncoveredEdges) {
-                String[] edge = edges.get(edgeIndex).split("-");
-                int u = Integer.parseInt(edge[0]);
-                int v = Integer.parseInt(edge[1]);
-
-                // 각 노드가 커버하는 엣지 수를 계산
-                vertexCoverage.put(u, vertexCoverage.getOrDefault(u, 0) + 1);
-                vertexCoverage.put(v, vertexCoverage.getOrDefault(v, 0) + 1);
-            }
-
-            // 최대 커버된 엣지를 가진 노드 찾기
-            int bestVertex = -1;
-            int maxCoverage = 0;
-            for (Map.Entry<Integer, Integer> entry : vertexCoverage.entrySet()) {
-                if (entry.getValue() > maxCoverage) {
-                    maxCoverage = entry.getValue();
-                    bestVertex = entry.getKey();
+    // Set Cover 알고리즘을 통해 극대 매칭을 찾는 메서드
+    public List<String> maxMatching() {
+        boolean[] covered = new boolean[V];  // 각 노드가 커버되었는지 여부를 추적하는 배열
+        List<String> selectedEdges = new ArrayList<>();
+        
+        // 각 간선의 양 끝 노드에 연결된 간선 수를 계산
+        List<int[]> edgeList = new ArrayList<>();
+        for (int u = 0; u < V; u++) {
+            for (int v : adj.get(u)) {
+                // 간선 (u, v)가 중복되지 않도록 처리
+                if (u < v) {
+                    edgeList.add(new int[]{u, v});
                 }
             }
-
-            // 해당 노드를 커버 집합에 추가
-            vertexCover.add(bestVertex);
-
-            // 이 노드로 커버되는 모든 엣지를 uncoveredEdges에서 제거
-            final int finalBestVertex = bestVertex;  // 최종적으로 선택된 노드
-            uncoveredEdges.removeIf(edgeIndex -> {
-                String[] edge = edges.get(edgeIndex).split("-");
-                return edge[0].equals(String.valueOf(finalBestVertex)) || edge[1].equals(String.valueOf(finalBestVertex));
-            });
         }
 
-        return vertexCover;
-    }
+        // 간선 리스트를 양 끝 노드의 연결 수가 많은 순으로 정렬
+        edgeList.sort((edge1, edge2) -> {
+            int count1 = adj.get(edge1[0]).size() + adj.get(edge1[1]).size();
+            int count2 = adj.get(edge2[0]).size() + adj.get(edge2[1]).size();
+            return Integer.compare(count2, count1);  // 내림차순 정렬
+        });
 
-    // Maximal Matching을 구하는 방법
-    public List<String> maximalMatching() {
-        List<String> matching = new ArrayList<>();
-        Set<Integer> matchedVertices = new HashSet<>();
-
-        // 모든 엣지에 대해 가능한 한 매칭을 시도
-        for (int i = 0; i < edges.size(); i++) {
-            String[] edge = edges.get(i).split("-");
-            int u = Integer.parseInt(edge[0]);
-            int v = Integer.parseInt(edge[1]);
-
-            // 두 노드가 아직 매칭되지 않았고, 실제로 연결된 엣지일 경우에만 매칭을 추가
-            if (!matchedVertices.contains(u) && !matchedVertices.contains(v) && isConnected(u, v)) {
-                // 이 엣지를 매칭에 추가
-                matching.add((char) ('A' + u) + "-" + (char) ('A' + v));
-                matchedVertices.add(u);
-                matchedVertices.add(v);
+        // 정렬된 간선 리스트에서 선택하여 커버할 노드를 찾아나감
+        for (int[] edge : edgeList) {
+            int u = edge[0];
+            int v = edge[1];
+            // u와 v가 모두 커버되지 않았다면 이 간선을 선택
+            if (!covered[u] && !covered[v]) {
+                selectedEdges.add(convertNodeToString(u) + "-" + convertNodeToString(v));  // 노드를 문자로 변환하여 간선 추가
+                covered[u] = true;  // u 노드 커버
+                covered[v] = true;  // v 노드 커버
             }
         }
 
-        return matching;
+        return selectedEdges;
     }
 
-// 엣지가 실제로 연결된 엣지인지 확인하는 메서드
-private boolean isConnected(int u, int v) {
-    return adj[u].contains(v);
-}
+    // 노드 번호를 A, B, C,... 와 같은 문자로 변환하는 메서드
+    private String convertNodeToString(int node) {
+        return String.valueOf((char) ('A' + node));
+    }
 
-
-    // Driver method
+    // Driver 메서드
     public static void main(String[] args) {
-        VertexCover graph = new VertexCover(16);  // 노드 수
-        
-        // 각 노드에 대해 엣지 번호를 연결
+        VertexCover graph = new VertexCover(16); // 노드 수
+
+        // 엣지 연결
         graph.addEdge(0, new int[] {0, 4});   // A - B, E
         graph.addEdge(1, new int[] {0, 2, 4, 5, 6});   // B - A, C, F
         graph.addEdge(2, new int[] {1, 3, 6});   // C - B, D, G
@@ -133,11 +88,12 @@ private boolean isConnected(int u, int v) {
         graph.addEdge(13, new int[] {9, 12, 14});   // N - J, M, O
         graph.addEdge(14, new int[] {9, 10, 11, 13, 15});   // O - K, N, P
         graph.addEdge(15, new int[] {11, 14});   // P - L, O
-        
-        // Maximal Matching을 구합니다
-        List<String> matching = graph.maximalMatching();
 
-        // 매칭된 엣지 출력
-        System.out.println("Maximal Matching (Edges): " + matching);
+        // 극대 매칭 찾기
+        System.out.println("Maximal matching edges");
+        List<String> matchingEdges = graph.maxMatching();
+        for (String edge : matchingEdges) {
+            System.out.println(edge);
+        }
     }
 }
