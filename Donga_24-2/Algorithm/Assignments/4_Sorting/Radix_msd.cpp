@@ -6,8 +6,8 @@
 #define MAX_NUMBERS 10000
 using namespace std;
 
-int readFile(const std::string &filename, int *A, int max_numbers) {
-    std::ifstream file(filename);
+int readFile(const string &filename, int *A, int max_numbers) {
+    ifstream file(filename);
     if (!file) {
         cout << "파일을 열 수 없습니다.\n";
         return -1;
@@ -24,8 +24,8 @@ int readFile(const std::string &filename, int *A, int max_numbers) {
     return n;
 }
 
-void writeFile(const std::string &filename, int *A, int n) {
-    std::ofstream file(filename);
+void writeFile(const string &filename, int *A, int n) {
+    ofstream file(filename);
     if (!file) {
         cout << "결과 파일을 열 수 없습니다.\n";
         return;
@@ -69,7 +69,7 @@ int main() {
     int A[MAX_NUMBERS];
     int n = readFile("input.txt", A, MAX_NUMBERS);
     if (n < 0) {
-        std::cout << "파일을 읽는 데 문제가 발생했습니다.\n";
+        cout << "파일을 읽는 데 문제가 발생했습니다.\n";
         return 1;
     }
 

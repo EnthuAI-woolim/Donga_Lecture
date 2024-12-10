@@ -5,21 +5,23 @@
 #include <algorithm>
 #include <cstddef>
 
+using namespace std;
+
 #define MEMORY_SIZE 100
 
-extern void readFile(const std::string &filename, std::vector<int> &inputData);
-extern void writeFile(const std::string &filename, std::vector<int> &outputData);
-extern void internalSort(const std::vector<int> &data, std::vector<std::vector<int>> &inputHDD);
+extern void readFile(const string &filename, vector<int> &inputData);
+extern void writeFile(const string &filename, vector<int> &outputData);
+extern void internalSort(const vector<int> &data, vector<vector<int>> &inputHDD);
 
 
 int main() {
     int memoryBlockSize = MEMORY_SIZE / 2;
-    std::vector<int> data;
-    std::vector<std::vector<int>> inputHDD;
-    std::vector<std::vector<int>> outputHDD;
+    vector<int> data;
+    vector<vector<int>> inputHDD;
+    vector<vector<int>> outputHDD;
 
-    std::vector<std::vector<int>> memory(2);
-    std::vector<int> block;
+    vector<vector<int>> memory(2);
+    vector<int> block;
     
     readFile("input.txt", data);
     internalSort(data, inputHDD);
@@ -75,10 +77,10 @@ int main() {
 
 
 
-void readFile(const std::string &filename, std::vector<int> &inputData) {
-    std::ifstream file(filename);
+void readFile(const string &filename, vector<int> &inputData) {
+    ifstream file(filename);
     if (!file) {
-        std::cout << "파일을 열 수 없습니다.\n";
+        cout << "파일을 열 수 없습니다.\n";
         return;
     }
 
@@ -90,10 +92,10 @@ void readFile(const std::string &filename, std::vector<int> &inputData) {
     file.close();
 }
 
-void writeFile(const std::string &filename, std::vector<int> &outputData) {
-    std::ofstream file(filename);
+void writeFile(const string &filename, vector<int> &outputData) {
+    ofstream file(filename);
     if (!file) {
-        std::cout << "파일을 열 수 없습니다.\n";
+        cout << "파일을 열 수 없습니다.\n";
         return;
     }
 
@@ -102,21 +104,21 @@ void writeFile(const std::string &filename, std::vector<int> &outputData) {
     }
 
     file.close();
-    std::cout << filename << "을 생성하였습니다.\n";
+    cout << filename << "을 생성하였습니다.\n";
 }
 
 
-void internalSort(const std::vector<int> &data, std::vector<std::vector<int>> &inputHDD) {
+void internalSort(const vector<int> &data, vector<vector<int>> &inputHDD) {
     size_t totalSize = data.size(); // 전체 데이터 크기
     size_t numBlock = (totalSize + MEMORY_SIZE - 1) / MEMORY_SIZE; // MEMORY 크기로 나눌 때 필요한 청크 개수 계산
 
     for (size_t i = 0; i < numBlock; ++i) {
         size_t start = i * MEMORY_SIZE;
-        size_t end = std::min(start + MEMORY_SIZE, totalSize);
+        size_t end = min(start + MEMORY_SIZE, totalSize);
 
-        std::vector<int> block(data.begin() + start, data.begin() + end);
+        vector<int> block(data.begin() + start, data.begin() + end);
 
-        std::sort(block.begin(), block.end());
+        sort(block.begin(), block.end());
 
         inputHDD.push_back(block);
     }

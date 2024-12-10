@@ -3,13 +3,15 @@
 #include <algorithm>
 #include <cstring>
 
+using namespace std;
+
 #define MAX_NUMBERS 10000
 #define BASE 10
 
-int readFile(const std::string &filename, int *A, int max_numbers) {
-    std::ifstream file(filename);
+int readFile(const string &filename, int *A, int max_numbers) {
+    ifstream file(filename);
     if (!file) {
-        std::cerr << "파일을 열 수 없습니다.\n";
+        cerr << "파일을 열 수 없습니다.\n";
         return -1;
     }
 
@@ -17,7 +19,7 @@ int readFile(const std::string &filename, int *A, int max_numbers) {
     while (file >> A[n]) {
         n++;
         if (n >= max_numbers) {
-            std::cerr << "저장 가능한 최대 숫자 개수를 초과했습니다.\n";
+            cerr << "저장 가능한 최대 숫자 개수를 초과했습니다.\n";
             break;
         }
     }
@@ -26,10 +28,10 @@ int readFile(const std::string &filename, int *A, int max_numbers) {
     return n;
 }
 
-void writeFile(const std::string &filename, int *A, int n) {
-    std::ofstream file(filename);
+void writeFile(const string &filename, int *A, int n) {
+    ofstream file(filename);
     if (!file) {
-        std::cerr << "결과 파일을 열 수 없습니다.\n";
+        cerr << "결과 파일을 열 수 없습니다.\n";
         return;
     }
 
@@ -38,11 +40,11 @@ void writeFile(const std::string &filename, int *A, int n) {
     }
 
     file.close();
-    std::cout << filename << "을 생성하였습니다.\n";
+    cout << filename << "을 생성하였습니다.\n";
 }
 
 void radix_lsd(int* A, int n) {
-    int max_value = *std::max_element(A, A + n); // 배열에서 최대값 찾기
+    int max_value = *max_element(A, A + n); // 배열에서 최대값 찾기
     int exp = 1; // 자리수 표현 (1의 자리부터 시작)
 
     // 최대값의 자리수만큼 반복
@@ -80,7 +82,7 @@ int main() {
     int A[MAX_NUMBERS];
     int n = readFile("input.txt", A, MAX_NUMBERS);
     if (n < 0) {
-        std::cerr << "파일을 읽는 데 문제가 발생했습니다.\n";
+        cerr << "파일을 읽는 데 문제가 발생했습니다.\n";
         return 1;
     }
 
