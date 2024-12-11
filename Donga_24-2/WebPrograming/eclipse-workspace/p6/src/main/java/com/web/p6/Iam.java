@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class Iam {
 	
+	// Quiz 2 ~ 3
 	@GetMapping("/iam")
 	public String iam() {
 		return "iam";

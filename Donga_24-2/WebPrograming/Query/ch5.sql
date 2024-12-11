@@ -3,12 +3,12 @@ use airdb;
 show tables;
 
 create table member (
-mid varchar(10) not null primary key, 
-pw varchar(10) not null,
-name varchar(30) not null,
-phone varchar(15) not null,
-mileage int not null, 
-rdate datetime not null
+	mid varchar(10) not null primary key, 
+	pw varchar(10) not null,
+	name varchar(30) not null,
+	phone varchar(15) not null,
+	mileage int not null, 
+	rdate datetime not null
 );
 
 DESC member;

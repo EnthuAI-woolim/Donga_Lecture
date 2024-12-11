@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>회원 가입</title>
+	<style> 
+		fieldset {width:400px; background:orange; border:white; } 
+		legend { background:#B45F04; color:lightyellow; font-size:20px;}
+		input { width: 300px; padding:10px; margin-bottom:10px; font-size:16px;}
+		button { background:skyblue; color:brown; border:2px solid brown; 
+			font-size:20px; padding:5px 30px;}
+	</style>
+</head>
+<body>
+
+	<div align="center">
+		<form method="get" action="/member/insert"><p>
+			<fieldset> 
+				<legend>[ 회원 정보를 입력하세요 ]</legend>
+				<br> 
+				<input type="text" name="mid" placeholder="아이디를 입력하세요" required> <br>
+				<input type="text" name="pw" placeholder="패스워드를 입력하세요" required> <br>
+				<input type="text" name="name" placeholder="이름을 입력하세요" required> <br>
+				<input type="text" name="phone" placeholder="폰번호를 입력하세요" required> <br>
+				<input type="text" placeholder="신규 회원 보너스 1000 마일리지 적립" disabled> <br>
+				<br> 
+			</fieldset> <br> 
+		 <button>등 록</button> 
+		</form>
+	</div>
+	
+</body>
+</html>

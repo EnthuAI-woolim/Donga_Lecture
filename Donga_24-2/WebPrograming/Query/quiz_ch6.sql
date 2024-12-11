@@ -20,3 +20,5 @@ update star set fcount = fcount+1 where name = '해바라기';
 
 # 7
 update star set fcount = 0;
+
+select * from member;

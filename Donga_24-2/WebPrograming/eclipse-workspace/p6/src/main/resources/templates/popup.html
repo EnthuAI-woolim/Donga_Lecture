@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8">
+<title>안내글</title></head> 
+<body> 
+	<!-- <script th:inline='javascript'>
+		const m = [[${msg}]];
+		const u = [[${url}]];
+		alert(m);
+		if(u == 'back')
+			history.back();
+		else
+			location.href = u;
+	</script> -->
+	
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		m = /*[[${msg}]]*/ 'msg';
+		u = /*[[${url}]]*/ 'url';
+		alert(m);
+		if(u == 'back')
+			history.back(); // 뒤로가기 기능으로 input에 기록해둔게 남아있음
+		else
+			location.href = u;
+		/*]]>*/
+	</script>
+</body></html>

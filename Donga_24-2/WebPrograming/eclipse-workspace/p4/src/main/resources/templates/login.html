@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Welcome</title>
 
 <link rel="stylesheet" href="/style.css">
 <style> 
@@ -13,19 +13,18 @@
 </head>
 <body>
 
-<div id="loginInfo" th:text="${loginInfo}"></div>
-<h1>Campus ShoppingMall</h1>
-(bread, coffee, salad)<p>
-<form method="get" action="/login/check"> 
-	 <label for="mid">ID:</label> 
-	 	<input type="text" name="mid" id="mid"> 
-	 <label for="pw">PW:</label>
-	 	<input type="text" name="pw" id="pw">
-	 <button type="submit">로그인</button>
-</form><p>
-<img src="/image.png" alt="야경"><br>
-<span class="s2">(그림 출처: 나무위키)</span>
-
+	<div id="loginInfo" th:text="${loginInfo}"></div>
+	<h1>Campus ShoppingMall</h1>
+	(bread, coffee, salad)<p>
+	<form method="get" action="/login/check"> 
+		 <label for="mid">ID:</label> 
+		 	<input type="text" name="mid" id="mid"> 
+		 <label for="pw">PW:</label>
+		 	<input type="text" name="pw" id="pw">
+		 <button type="submit">로그인</button>
+	</form> <p>
+	<img src="/image.png" alt="야경"><br>
+	<span class="s2">(그림 출처: 나무위키)</span>
 
 </body>
 </html>

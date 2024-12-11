@@ -4,18 +4,18 @@
 <title>안내글</title></head> 
 <body> 
 
-<script th:inline="javascript"> // JS에서 thtmeleaf변수 사용하겠다는 코드
+<!-- <script th:inline="javascript"> // JS에서 thtmeleaf변수 사용하겠다는 코드
 	alert([[${msg}]]); // JS에서 thymeleaf변수 사용방법
 	location.href="/login";
-</script>
+</script> -->
 
-<!-- <script th:inline="javascript">
+<script th:inline="javascript">
 	/*<! [CDATA[*/
 		let msg = /*[[${msg}]]*/ 'default';
 		alert(msg);
 		location.href="/login";
 	/*]]>*/
-</script> -->
+</script>
 	
 </body>
 </html>

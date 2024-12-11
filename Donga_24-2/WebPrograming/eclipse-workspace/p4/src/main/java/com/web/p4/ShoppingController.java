@@ -29,15 +29,16 @@ public class ShoppingController {
 		
 		boolean ourMember=false;
 		for(var a: arr) {
-			if(a.mid.equals(mid) && a.pw.equals(pw)) 
-			{ ourMember = true; break; }
+			if(a.mid.equals(mid) && a.pw.equals(pw)) { 
+				ourMember = true; 
+				break; 
+			}
 		} 
 		
 		if( ourMember ) { 
 			se.setAttribute("mid", mid); 
 			return "redirect:/menu";  // redirect: -> 'html화면이 아니라, url이 "/menu"인 메소드를 실행시켜라'라는 뜻
-		} 
-		else { 
+		} else { 
 			se.setAttribute("msg", mid + "는 미등록 아이디이거나 혹은 패스워드가 일치하지 않습니다.\n"
 					+ "확인 후 로그인 부탁드립니다.");
 			return "redirect:/popup"; 

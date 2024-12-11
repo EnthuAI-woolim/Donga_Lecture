@@ -1,7 +1,7 @@
 package com.web.p5;
 
-import java.lang.reflect.AccessFlag.Location;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +18,7 @@ public class AirController {
 	 @Autowired
 	 private diaryRep drep;
 	 
+	 // ch5_p.21
 	 @GetMapping("/memberList")
 	 public String memberList(Model mo) {
 		 List<member> arr = mrep.findAll(); 
@@ -25,9 +26,27 @@ public class AirController {
 		 return "memberList";
 	 }
 	 
+	// Quiz 12
+	 @GetMapping("/productList")
+	 public String productList(Model mo) {
+		 List<product> arr = prep.findAll();
+		 mo.addAttribute("arr", arr);
+		 return "productList";
+	 }
+	 
+	 // Quiz 13 ~ 20
 	 @GetMapping("/diary")
 	 public String diary() { 
 		 return "diary";
+	 }
+	 
+	 @GetMapping("/diary/insert")
+	 public String diaryInsert(@RequestParam("je") String je, @RequestParam("nae") String nae) {
+		 diary d = new diary();
+		 d.je = je;
+		 d.nae = nae;
+		 drep.save(d); // insert
+		 return "redirect:/diaryPop";
 	 }
 	 
 	 @GetMapping("/diaryPop")
@@ -41,23 +60,8 @@ public class AirController {
 		 return "diaryList";
 	 }
 	 
-	 @GetMapping("/diary/insert")
-	 public String diaryInsert(@RequestParam("je") String je, @RequestParam("nae") String nae) {
-		 diary m = new diary();
-		 m.je = je;
-		 m.nae = nae;
-		 drep.save(m); // insert
-		 return "redirect:/diaryPop";
-	 }
 	 
 	 
 	 
-	 // ch5 Quiz 12
-	 @GetMapping("/productList")
-	 public String productList(Model mo) {
-		 List<product> arr = prep.findAll();
-		 mo.addAttribute("arr", arr);
-		 return "productList";
-	 }
 	 
 } 
