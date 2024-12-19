@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
-public class Iam {
+public class IamController {
 	
 	// Quiz 2 ~ 3
 	@GetMapping("/iam")

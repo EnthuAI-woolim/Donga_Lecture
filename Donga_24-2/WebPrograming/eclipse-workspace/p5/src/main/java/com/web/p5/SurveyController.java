@@ -34,7 +34,7 @@ public class SurveyController {
 	}
 	
 	@PostMapping("/thanks")
-	public String thanks(HttpSession se, @RequestParam("a2") String a2, Model mo) {
+	public String thanks(HttpSession se, @RequestParam("a2") String a2) {
 		se.setAttribute("a2", a2);
 		
 		survey s = new survey();

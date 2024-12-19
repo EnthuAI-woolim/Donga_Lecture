@@ -6,8 +6,8 @@
 <style>
 	div { 
 		display: inline-block;
-		width: 300px; 
-		height: 200px; 
+		width: 200px; 
+		height: 100px; 
 		background-size: cover; 
 		background-position: center;
 	}
@@ -18,15 +18,19 @@
 	<h2>좋아하는 음식 종류</h2>
 	<form method="post" action="/survey2">
 	  	<input type="radio" name="a1" value="한식" checked>한식<br>
+	  	<div style="background-image: url('/korean.jpg')"></div><br>
 	  	<input type="radio" name="a1" value="중식">중식<br>
+	  	<div style="background-image: url('/chinese.jpg')"></div><br>
 	  	<input type="radio" name="a1" value="일식">일식<br>
-	  	<input type="radio" name="a1" value="양식">양식<p>
+	  	<div style="background-image: url('/japanese.jpg')"></div><br>
+	  	<input type="radio" name="a1" value="양식">양식<br>
+	  	<div style="background-image: url('/western.jpg')"></div><p>
 	  	<button type="submit">선택</button>
 	</form>
-	<div style="background-image: url('/korean.jpg')"></div>
-	<div style="background-image: url('/chinese.jpg')"></div>
-	<div style="background-image: url('/japanese.jpg')"></div>
-	<div style="background-image: url('/western.jpg')"></div>
+	
+	
+	
+	
 	
 </body>
 </html>

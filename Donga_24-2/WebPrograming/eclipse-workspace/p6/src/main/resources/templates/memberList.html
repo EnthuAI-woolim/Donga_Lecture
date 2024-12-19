@@ -3,7 +3,7 @@
 <head><meta charset="UTF-8"><title>성공</title>
 <style> 
 	table {border:2px solid darkgray; 
-		width:700px; border-collapse: collapse; }
+		width:700px; border-collapse: collapse;	 }
 	th,td { border: 1px solid darkgray; }
 	#td1 { color:blue; font-weight:bold; }
 	#td2 { color:red; text-align:right; }
@@ -16,12 +16,12 @@
 		<table>
 			 <tr> <th>아이디 <th>패스워드 <th>이름 <th>연락처 <th>마일리지 <th>가입일시
 			 <tr th:each="a:${arr}"> 
-			 <th th:text="${a.mid}" id="td1">mid
-			 <td th:text="${a.pw}">pw
-			 <td th:text="${a.name}">name
-			 <td th:text="${a.phone}">phone
-			 <td th:text="${a.mileage}" id="td2">mileage 
-			 <td th:text="${a.rdate}" id="td3">rdate
+				 <th th:text="${a.mid}" id="td1">mid
+				 <td th:text="${a.pw}">pw
+				 <td th:text="${a.name}">name
+				 <td th:text="${a.phone}">phone
+				 <td th:text="${a.mileage}" id="td2">mileage 
+				 <td th:text="${a.rdate}" id="td3">rdate
 		</table> <p>
 		<a href="/member/new">회원가입 화면으로</a>
 	</div>
