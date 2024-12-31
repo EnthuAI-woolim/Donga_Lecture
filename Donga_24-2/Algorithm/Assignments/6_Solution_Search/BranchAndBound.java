@@ -1,198 +1,114 @@
-// Java program to solve Traveling Salesman Problem
-// using Branch and Bound.
 import java.util.*;
 
-class GFG
-{
-	
-	static int N = 4;
+class BranchAndBound {
+    
+    static int numNodes = 5; // 노드 수
 
-	// final_path[] stores the final solution ie, the
-	// path of the salesman.
-	static int final_path[] = new int[N + 1];
+    static int[] bestTour = new int[numNodes + 1]; // 최적 경로
+    static boolean[] visited = new boolean[numNodes]; // 방문 여부
+    static int bestDistance = Integer.MAX_VALUE; // 최소 거리
 
-	// visited[] keeps track of the already visited nodes
-	// in a particular path
-	static boolean visited[] = new boolean[N];
+    // 현재 경로를 최적 경로에 복사
+    static void copyToBestTour(int[] currentTour) {
+        System.arraycopy(currentTour, 0, bestTour, 0, numNodes);
+        bestTour[numNodes] = currentTour[0]; // 경로 닫기
+    }
 
-	// Stores the final minimum weight of shortest tour.
-	static int final_res = Integer.MAX_VALUE;
+    // 최소 간선 비용 찾기
+    static int getFirstMinEdge(int[][] graph, int node) {
+        int min = Integer.MAX_VALUE;
+        for (int i = 0; i < numNodes; i++) {
+            if (graph[node][i] < min && node != i) min = graph[node][i];
+        }
+        return min;
+    }
 
-	// Function to copy temporary solution to
-	// the final solution
-	static void copyToFinal(int curr_path[])
-	{
-		for (int i = 0; i < N; i++)
-			final_path[i] = curr_path[i];
-		final_path[N] = curr_path[0];
-	}
+    // 두 번째 최소 간선 비용 찾기
+    static int getSecondMinEdge(int[][] graph, int node) {
+        int first = Integer.MAX_VALUE, second = Integer.MAX_VALUE;
+        for (int i = 0; i < numNodes; i++) {
+            if (node == i) continue;
+            if (graph[node][i] <= first) { second = first; first = graph[node][i]; }
+            else if (graph[node][i] <= second) second = graph[node][i];
+        }
+        return second;
+    }
 
-	// Function to find the minimum edge cost
-	// having an end at the vertex i
-	static int firstMin(int adj[][], int i)
-	{
-		int min = Integer.MAX_VALUE;
-		for (int k = 0; k < N; k++)
-			if (adj[i][k] < min && i != k)
-				min = adj[i][k];
-		return min;
-	}
+    // Branch and Bound 방식으로 재귀적으로 TSP 해결
+    static void BranchAndBoundTSPRecursively(int[][] graph, int currentBound, int currentWeight, int level, int[] currentTour) {
+        if (level == numNodes) { // 모든 노드를 방문했을 때
+            if (graph[currentTour[level - 1]][currentTour[0]] != 0) {
+                int currentTotalDistance = currentWeight + graph[currentTour[level - 1]][currentTour[0]];
+                if (currentTotalDistance < bestDistance) {
+                    copyToBestTour(currentTour); // 최적 경로 갱신
+                    bestDistance = currentTotalDistance;
+                }
+            }
+            return;
+        }
 
-	// function to find the second minimum edge cost
-	// having an end at the vertex i
-	static int secondMin(int adj[][], int i)
-	{
-		int first = Integer.MAX_VALUE, second = Integer.MAX_VALUE;
-		for (int j=0; j<N; j++)
-		{
-			if (i == j)
-				continue;
+        for (int i = 0; i < numNodes; i++) {
+            if (graph[currentTour[level - 1]][i] != 0 && !visited[i]) { // 방문하지 않은 노드
+                int temp = currentBound;
+                currentWeight += graph[currentTour[level - 1]][i];
 
-			if (adj[i][j] <= first)
-			{
-				second = first;
-				first = adj[i][j];
-			}
-			else if (adj[i][j] <= second &&
-					adj[i][j] != first)
-				second = adj[i][j];
-		}
-		return second;
-	}
+                if (level == 1) { // 첫 번째 레벨에서는 두 최소 간선 사용
+                    currentBound -= ((getFirstMinEdge(graph, currentTour[level - 1]) + getFirstMinEdge(graph, i)) / 2);
+                } else {
+                    currentBound -= ((getSecondMinEdge(graph, currentTour[level - 1]) + getFirstMinEdge(graph, i)) / 2);
+                }
 
-	// function that takes as arguments:
-	// curr_bound -> lower bound of the root node
-	// curr_weight-> stores the weight of the path so far
-	// level-> current level while moving in the search
-	//		 space tree
-	// curr_path[] -> where the solution is being stored which
-	//			 would later be copied to final_path[]
-	static void TSPRec(int adj[][], int curr_bound, int curr_weight,
-				int level, int curr_path[])
-	{
-		// base case is when we have reached level N which
-		// means we have covered all the nodes once
-		if (level == N)
-		{
-			// check if there is an edge from last vertex in
-			// path back to the first vertex
-			if (adj[curr_path[level - 1]][curr_path[0]] != 0)
-			{
-				// curr_res has the total weight of the
-				// solution we got
-				int curr_res = curr_weight +
-						adj[curr_path[level-1]][curr_path[0]];
-	
-				// Update final result and final path if
-				// current result is better.
-				if (curr_res < final_res)
-				{
-					copyToFinal(curr_path);
-					final_res = curr_res;
-				}
-			}
-			return;
-		}
+                if (currentBound + currentWeight < bestDistance) { // 최적 경로 가능성 확인
+                    currentTour[level] = i;
+                    visited[i] = true;
+                    BranchAndBoundTSPRecursively(graph, currentBound, currentWeight, level + 1, currentTour); // 재귀 호출
+                }
 
-		// for any other level iterate for all vertices to
-		// build the search space tree recursively
-		for (int i = 0; i < N; i++)
-		{
-			// Consider next vertex if it is not same (diagonal
-			// entry in adjacency matrix and not visited
-			// already)
-			if (adj[curr_path[level-1]][i] != 0 &&
-					visited[i] == false)
-			{
-				int temp = curr_bound;
-				curr_weight += adj[curr_path[level - 1]][i];
+                // 백트래킹
+                currentWeight -= graph[currentTour[level - 1]][i];
+                currentBound = temp;
 
-				// different computation of curr_bound for
-				// level 2 from the other levels
-				if (level==1)
-				curr_bound -= ((firstMin(adj, curr_path[level - 1]) +
-								firstMin(adj, i))/2);
-				else
-				curr_bound -= ((secondMin(adj, curr_path[level - 1]) +
-								firstMin(adj, i))/2);
+                Arrays.fill(visited, false);
+                for (int j = 0; j < level; j++) visited[currentTour[j]] = true;
+            }
+        }
+    }
 
-				// curr_bound + curr_weight is the actual lower bound
-				// for the node that we have arrived on
-				// If current lower bound < final_res, we need to explore
-				// the node further
-				if (curr_bound + curr_weight < final_res)
-				{
-					curr_path[level] = i;
-					visited[i] = true;
+    static void BranchAndBoundTSP(int[][] graph) {
+        int[] currentTour = new int[numNodes + 1];
+        int currentBound = 0;
 
-					// call TSPRec for the next level
-					TSPRec(adj, curr_bound, curr_weight, level + 1,
-						curr_path);
-				}
+        Arrays.fill(currentTour, -1); // 경로 초기화
+        Arrays.fill(visited, false); // 방문 여부 초기화
 
-				// Else we have to prune the node by resetting
-				// all changes to curr_weight and curr_bound
-				curr_weight -= adj[curr_path[level-1]][i];
-				curr_bound = temp;
+        for (int i = 0; i < numNodes; i++) {
+            currentBound += (getFirstMinEdge(graph, i) + getSecondMinEdge(graph, i));
+        }
+        currentBound = currentBound / 2;
 
-				// Also reset the visited array
-				Arrays.fill(visited,false);
-				for (int j = 0; j <= level - 1; j++)
-					visited[curr_path[j]] = true;
-			}
-		}
-	}
+        visited[0] = true;
+        currentTour[0] = 0; // 시작점(A)
 
-	// This function sets up final_path[] 
-	static void TSP(int adj[][])
-	{
-		int curr_path[] = new int[N + 1];
+        BranchAndBoundTSPRecursively(graph, currentBound, 0, 1, currentTour);
+    }
 
-		// Calculate initial lower bound for the root node
-		// using the formula 1/2 * (sum of first min +
-		// second min) for all edges.
-		// Also initialize the curr_path and visited array
-		int curr_bound = 0;
-		Arrays.fill(curr_path, -1);
-		Arrays.fill(visited, false);
+    public static void main(String[] args) {
+        int[][] graph = {
+            {0,  2,  7,  3, 10},
+            {2,  0,  3,  5,  4},
+            {7,  3,  0,  6,  1},
+            {3,  5,  6,  0,  9},
+            {10, 4,  1,  9,  0}
+        };
 
-		// Compute initial bound
-		for (int i = 0; i < N; i++)
-			curr_bound += (firstMin(adj, i) +
-						secondMin(adj, i));
+        BranchAndBoundTSP(graph);
 
-		// Rounding off the lower bound to an integer
-		curr_bound = (curr_bound==1)? curr_bound/2 + 1 :
-									curr_bound/2;
-
-		// We start at vertex 1 so the first vertex
-		// in curr_path[] is 0
-		visited[0] = true;
-		curr_path[0] = 0;
-
-		// Call to TSPRec for curr_weight equal to
-		// 0 and level 1
-		TSPRec(adj, curr_bound, 0, 1, curr_path);
-	}
-	
-	// Driver code
-	public static void main(String[] args) 
-	{
-		//Adjacency matrix for the given graph
-		int adj[][] = {{0, 10, 15, 20},
-						{10, 0, 35, 25},
-						{15, 35, 0, 30},
-						{20, 25, 30, 0} };
-
-		TSP(adj);
-
-		System.out.printf("Minimum cost : %d\n", final_res);
-		System.out.printf("Path Taken : ");
-		for (int i = 0; i <= N; i++) 
-		{
-			System.out.printf("%d ", final_path[i]);
-		}
-	}
+        // 결과 출력
+        System.out.printf("최적 경로 : ");
+        for (int i = 0; i <= numNodes; i++) {
+            System.out.printf("%c ", (char) ('A' + bestTour[i]));
+        }
+        System.out.println();
+        System.out.printf("거리 : %d\n", bestDistance);
+    }
 }
-
-/* This code contributed by PrinciRaj1992 */
