@@ -3,3 +3,6 @@ node_modules/
 .vscode/
 .idea/
 **/Video/
+
+# Ignore all "gitignore" folders.
+**/gitignore/
