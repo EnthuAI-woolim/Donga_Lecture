@@ -1,10 +1,5 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 10 12:38:37 2025
-
-@author: USER
-"""
 import pandas as pd
+import numpy as np
 
 #%%
 # #%% : 셸을 나눔 
