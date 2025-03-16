@@ -5,7 +5,9 @@ import torchvision.datasets as dataset
 import torchvision.transforms as transform
 from torch.utils.data import DataLoader
 
+#%%
 ### Dataset 선언
+
 # Training dataset 다운로드
 mnist_train = dataset.MNIST(root = "./", # 데이터셋을 저장할 위치
                             train = True,
@@ -17,24 +19,29 @@ mnist_test = dataset.MNIST(root = "./",
                             transform = transform.ToTensor(),
                             download = True)
 
+#%%
 ### MNIST 데이터셋 형상 확인
+
 import matplotlib.pyplot as plt
-# print(len(mnist_train))     # training dataset 개수 확인
+print(len(mnist_train))     # training dataset 개수 확인
 
 first_data = mnist_train[0]
-# print(first_data[0].shape)  # 첫번째 data의 형상 확인
-# print(first_data[1])        # 첫번째 data의 정답 확인
+print(first_data[0].shape)  # 첫번째 data의 형상 확인
+print(first_data[1])        # 첫번째 data의 정답 확인
 
-# plt.imshow(first_data[0][0,:,:], cmap='gray')
-# plt.show()
+plt.imshow(first_data[0][0,:,:], cmap='gray')
+plt.show()
 
+#%%
 first_img = first_data[0]
-# print(first_img.shape)
+print(first_img.shape)
 
 first_img = first_img.view(-1, 28*28) # 이미지 평탄화 수행 2D -> 1D
-# print(first_img.shape)
+print(first_img.shape)
 
+#%%
 ### Multi Layer Perceptron 모델 정의
+
 class MLP (nn.Module):
   def __init__ (self):
     super(MLP, self).__init__()
@@ -56,7 +63,9 @@ class MLP (nn.Module):
     y = self.fc5(x)
     return y
 
+#%%
 ### Hyper-parameters 지정
+
 # 참고: torch.nn.CrossEntropyLoss()
 #   1. 예측 값들에 대해 자동으로 softmax 적용: 여러 개의 입력을 받아 각각의 확률 값으로 출력
 #   2. 정답 값과 예측 값을 이용해 cross entropy loss 측정
@@ -72,7 +81,9 @@ data_loader = DataLoader(dataset=mnist_train,
                          shuffle=True,
                          drop_last=True)
 
+#%%
 ### Perceptron 학습을 위한 반복문 선언
+
 for epoch in range(training_epochs):
   avg_cost = 0
   total_batch = len(data_loader)
@@ -91,42 +102,55 @@ for epoch in range(training_epochs):
 
 print('Learning finished')
 
+#%%
 ### 학습이 완료된 모델을 이용해 정답률 확인
+
 network = network.to('cpu')
 with torch.no_grad(): # test에서는 기울기 계산 제외
 
   img_test = mnist_test.data.float()
   label_test = mnist_test.targets
 
-  # prediction = network(img_test) # 전체 test data를 한번에 계산
-  prediction = network(mnist_test.data[0].float())
+  prediction = network(img_test) # 전체 test data를 한번에 계산
+  # prediction = network(mnist_test.data.float())
 
   # 예측 값이 가장 높은 숫자(0~9)와 정답데이터가 일치한 지 확인
   correct_prediction = torch.argmax(prediction, 1) == label_test
   accuracy = correct_prediction.float().mean()
-  # print('Accuracy:', accuracy.item())
+  print('Accuracy:', accuracy.item())
 
-  ### 예측 결과 값 확인
-  prediction_num = torch.argmax(prediction, 1)
-  print(prediction)
-  print(prediction_num)
-  plt.imshow(first_data[0], cmap="gray")
-  plt.show()
-#
-# ### Weight parameter 저장하기/불러오기
-# # torch.save(network.state_dict(), "./mlp_mnist.pth")
-#
-# ### 저장된 파라미터 로드
-# network.load_state_dict(torch.load("./slp_mnist.pth"))
-#
-# ### 파라미터 출력
-# for name, param in network.named_parameters():
-#     print(f"Parameter name: {name}")
-#     print(f"Parameter value: {param.data}")
-#     print(f"Gradient: {param.grad}")
-#     print()  # 줄 바꿈
+#%%
+### 예측 결과 값 확인
+first_test_data = mnist_test[0]     # mnist_test의 첫번째 정답 숫자 = 7
 
+prediction_num = torch.argmax(prediction, 1)
+print(prediction)
+print(prediction_num)               # 출력 결과 0번째 값 = 7
+plt.imshow(first_test_data[0][0,:,:], cmap='gray')
+plt.show()
+
+#%%
+### Weight parameter 저장하기/불러오기
+
+torch.save(network.state_dict(), "./mlp_mnist.pth")
+
+#%%
+### 저장된 파라미터 로드
+
+network.load_state_dict(torch.load("./slp_mnist.pth"))
+
+#%%
+### 파라미터 출력
+
+for name, param in network.named_parameters():
+    print(f"Parameter name: {name}")
+    print(f"Parameter value: {param.data}")
+    print(f"Gradient: {param.grad}")
+    print()  # 줄 바꿈
+
+#%%
 ### 결과값
+
 '''
 1.
 - self.fc1 = nn.Linear(in_features=784, out_features=10)
